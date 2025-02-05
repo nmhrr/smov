@@ -200,11 +200,6 @@ export function PlayerPart(props: PlayerPartProps) {
 
       <Player.VolumeChangedPopout />
 
-      <Player.NextEpisodeButton
-        controlsShowing={showTargets}
-        onChange={props.onMetaChange}
-      />
-
       <SkipIntroButton controlsShowing={showTargets} skipTime={skiptime} />
     </Player.Container>
   );
