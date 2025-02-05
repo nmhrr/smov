@@ -5,6 +5,7 @@ import IosPwaLimitations from "@/components/buttons/IosPwaLimitations";
 import { Icon, Icons } from "@/components/Icon";
 import { BrandPill } from "@/components/layout/BrandPill";
 import { Player } from "@/components/player";
+import { SkipIntroButton } from "@/components/player/atoms/SkipIntroButton";
 import { Widescreen } from "@/components/player/atoms/Widescreen";
 import { usePlayerMeta } from "@/components/player/hooks/usePlayerMeta";
 import { useShouldShowControls } from "@/components/player/hooks/useShouldShowControls";
@@ -53,6 +54,8 @@ export function PlayerPart(props: PlayerPartProps) {
       setIsShifting(false);
     }
   });
+
+  const skiptime = null;
 
   return (
     <Player.Container onLoad={props.onLoad} showingControls={showTargets}>
@@ -195,6 +198,13 @@ export function PlayerPart(props: PlayerPartProps) {
       </Player.BottomControls>
 
       <Player.VolumeChangedPopout />
+
+      <Player.NextEpisodeButton
+        controlsShowing={showTargets}
+        onChange={props.onMetaChange}
+      />
+
+      <SkipIntroButton controlsShowing={showTargets} skipTime={skiptime} />
     </Player.Container>
   );
 }
