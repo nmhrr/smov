@@ -11,9 +11,10 @@ function shouldShowSkipButton(
 ): "always" | "hover" | "none" {
   if (typeof skipTime !== "number") return "none";
 
-  // Show button from beginning until the skip point
+  // Only show during the first 10 seconds of the intro section
   if (currentTime >= 0 && currentTime < skipTime) {
-    return "always";
+    if (currentTime <= 10) return "always";
+    return "hover";
   }
 
   return "none";
