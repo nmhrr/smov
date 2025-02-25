@@ -39,6 +39,55 @@ const TV_PROVIDERS = [
   { name: "fubuTV", id: "257" },
 ];
 
+// Editor Picks lists
+const EDITOR_PICKS_MOVIES = [
+  { id: 9342, type: "movie" }, // The Mask of Zorro
+  { id: 293, type: "movie" }, // A River Runs Through It
+  { id: 370172, type: "movie" }, // No Time To Die
+  { id: 661374, type: "movie" }, // The Glass Onion
+  { id: 207, type: "movie" }, // Dead Poets Society
+  { id: 378785, type: "movie" }, // The Best of the Blues Brothers
+  { id: 335984, type: "movie" }, // Blade Runner 2049
+  { id: 13353, type: "movie" }, // It's the Great Pumpkin, Charlie Brown
+  { id: 27205, type: "movie" }, // Inception
+  { id: 106646, type: "movie" }, // The Wolf of Wall Street
+  { id: 334533, type: "movie" }, // Captain Fantastic
+  { id: 693134, type: "movie" }, // Dune: Part Two
+  { id: 765245, type: "movie" }, // Swan Song
+  { id: 264660, type: "movie" }, // Ex Machina
+  { id: 92591, type: "movie" }, // Bernie
+  { id: 976893, type: "movie" }, // Perfect Days
+  { id: 13187, type: "movie" }, // A Charlie Brown Christmas
+  { id: 11527, type: "movie" }, // Excalibur
+  { id: 120, type: "movie" }, // LOTR: The Fellowship of the Ring
+  { id: 157336, type: "movie" }, // Interstellar
+  { id: 762, type: "movie" }, // Monty Python and the Holy Grail
+  { id: 666243, type: "movie" }, // The Witcher: Nightmare of the Wolf
+  { id: 545611, type: "movie" }, // Everything Everywhere All at Once
+  { id: 329, type: "movie" }, // Jurrassic Park
+  { id: 330459, type: "movie" }, // Rogue One: A Star Wars Story
+  { id: 279, type: "movie" }, // Amadeus
+  { id: 823219, type: "movie" }, // Flow
+];
+
+const EDITOR_PICKS_TV_SHOWS = [
+  { id: 456, type: "show" }, // The Simpsons
+  { id: 73021, type: "show" }, // Disenchantment
+  { id: 1434, type: "show" }, // Family Guy
+  { id: 1695, type: "show" }, // Monk
+  { id: 1408, type: "show" }, // House
+  { id: 93740, type: "show" }, // Foundation
+  { id: 60625, type: "show" }, // Rick and Morty
+  { id: 1396, type: "show" }, // Breaking Bad
+  { id: 44217, type: "show" }, // Vikings
+  { id: 90228, type: "show" }, // Dune Prophecy
+  { id: 13916, type: "show" }, // Death Note
+  { id: 71912, type: "show" }, // The Witcher
+  { id: 61222, type: "show" }, // Bojack Horseman
+  { id: 93405, type: "show" }, // Squid Game
+  { id: 87108, type: "show" }, // Chernobyl
+];
+
 export function DiscoverContent() {
   // State management
   const [selectedCategory, setSelectedCategory] = useState("movies");
@@ -57,6 +106,8 @@ export function DiscoverContent() {
   );
   const [providerMovies, setProviderMovies] = useState<Movie[]>([]);
   const [providerTVShows, setProviderTVShows] = useState<any[]>([]);
+  const [editorPicksMovies, setEditorPicksMovies] = useState<Movie[]>([]);
+  const [editorPicksTVShows, setEditorPicksTVShows] = useState<any[]>([]);
 
   // Refs
   const carouselRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -105,6 +156,58 @@ export function DiscoverContent() {
 
     fetchGenres();
   }, []);
+
+  // Fetch Editor Picks Movies
+  useEffect(() => {
+    const fetchEditorPicksMovies = async () => {
+      try {
+        const moviePromises = EDITOR_PICKS_MOVIES.map((item) =>
+          get<any>(`/movie/${item.id}`, {
+            api_key: conf().TMDB_READ_API_KEY,
+            language: "en-US",
+            append_to_response: "videos,images",
+          }),
+        );
+
+        const results = await Promise.all(moviePromises);
+        // Shuffle the results to display them randomly
+        const shuffled = [...results].sort(() => 0.5 - Math.random());
+        setEditorPicksMovies(shuffled);
+      } catch (error) {
+        console.error("Error fetching editor picks movies:", error);
+      }
+    };
+
+    if (selectedCategory === "editorpicks") {
+      fetchEditorPicksMovies();
+    }
+  }, [selectedCategory]);
+
+  // Fetch Editor Picks TV Shows
+  useEffect(() => {
+    const fetchEditorPicksTVShows = async () => {
+      try {
+        const tvShowPromises = EDITOR_PICKS_TV_SHOWS.map((item) =>
+          get<any>(`/tv/${item.id}`, {
+            api_key: conf().TMDB_READ_API_KEY,
+            language: "en-US",
+            append_to_response: "videos,images",
+          }),
+        );
+
+        const results = await Promise.all(tvShowPromises);
+        // Shuffle the results to display them randomly
+        const shuffled = [...results].sort(() => 0.5 - Math.random());
+        setEditorPicksTVShows(shuffled);
+      } catch (error) {
+        console.error("Error fetching editor picks TV shows:", error);
+      }
+    };
+
+    if (selectedCategory === "editorpicks") {
+      fetchEditorPicksTVShows();
+    }
+  }, [selectedCategory]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -182,6 +285,30 @@ export function DiscoverContent() {
     }
   };
 
+  // Render Editor Picks content
+  const renderEditorPicksContent = () => {
+    return (
+      <>
+        <MediaCarousel
+          medias={editorPicksMovies}
+          category="Editor Picks Movies"
+          isTVShow={false}
+          movieWidth={movieWidth}
+          isMobile={isMobile}
+          carouselRefs={carouselRefs}
+        />
+        <MediaCarousel
+          medias={editorPicksTVShows}
+          category="Editor Picks Shows"
+          isTVShow
+          movieWidth={movieWidth}
+          isMobile={isMobile}
+          carouselRefs={carouselRefs}
+        />
+      </>
+    );
+  };
+
   return (
     <div>
       {/* Random Movie Button */}
@@ -195,7 +322,7 @@ export function DiscoverContent() {
       <div className="mt-8 p-4 w-full max-w-screen-xl mx-auto">
         <div className="relative flex justify-center mb-4">
           <div className="flex space-x-4">
-            {["movies", "tvshows"].map((category) => (
+            {["movies", "tvshows", "editorpicks"].map((category) => (
               <button
                 key={category}
                 type="button"
@@ -206,104 +333,119 @@ export function DiscoverContent() {
                 }`}
                 onClick={() => handleCategoryChange(category)}
               >
-                {category === "movies" ? "Movies" : "TV Shows"}
+                {category === "movies"
+                  ? "Movies"
+                  : category === "tvshows"
+                    ? "TV Shows"
+                    : "Editor Picks"}
               </button>
             ))}
           </div>
         </div>
-        <div className="flex justify-center overflow-x-auto">
-          <CategoryButtons
-            categories={
-              selectedCategory === "movies" ? MOVIE_PROVIDERS : TV_PROVIDERS
-            }
-            onCategoryClick={handleProviderClick}
-            categoryType="providers"
-            isMobile={isMobile}
-            showAlwaysScroll={false}
-          />
-        </div>
-        <div className="flex overflow-x-auto">
-          <CategoryButtons
-            categories={
-              selectedCategory === "movies"
-                ? [...categories, ...genres]
-                : [...tvCategories, ...tvGenres]
-            }
-            onCategoryClick={(id, name) => {
-              const element = document.getElementById(
-                `carousel-${name.toLowerCase().replace(/ /g, "-")}`,
-              );
-              if (element) {
-                element.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                  inline: "center",
-                });
-              }
-            }}
-            categoryType="movies"
-            isMobile={isMobile}
-            showAlwaysScroll
-          />
-        </div>
+
+        {/* Only show provider and genre buttons for movies and tvshows categories */}
+        {selectedCategory !== "editorpicks" && (
+          <>
+            <div className="flex justify-center overflow-x-auto">
+              <CategoryButtons
+                categories={
+                  selectedCategory === "movies" ? MOVIE_PROVIDERS : TV_PROVIDERS
+                }
+                onCategoryClick={handleProviderClick}
+                categoryType="providers"
+                isMobile={isMobile}
+                showAlwaysScroll={false}
+              />
+            </div>
+            <div className="flex overflow-x-auto">
+              <CategoryButtons
+                categories={
+                  selectedCategory === "movies"
+                    ? [...categories, ...genres]
+                    : [...tvCategories, ...tvGenres]
+                }
+                onCategoryClick={(id, name) => {
+                  const element = document.getElementById(
+                    `carousel-${name.toLowerCase().replace(/ /g, "-")}`,
+                  );
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                      inline: "center",
+                    });
+                  }
+                }}
+                categoryType="movies"
+                isMobile={isMobile}
+                showAlwaysScroll
+              />
+            </div>
+          </>
+        )}
       </div>
+
       {/* Content Section */}
       <div className="w-full md:w-[90%] max-w-[2400px] mx-auto">
-        {(() => {
-          const isMovieCategory = selectedCategory === "movies";
-          const providerMedia = isMovieCategory
-            ? providerMovies
-            : providerTVShows;
-          const mediaGenres = isMovieCategory ? genres : tvGenres;
-          const mediaCategories = isMovieCategory ? categories : tvCategories;
+        {selectedCategory === "editorpicks"
+          ? renderEditorPicksContent()
+          : (() => {
+              const isMovieCategory = selectedCategory === "movies";
+              const providerMedia = isMovieCategory
+                ? providerMovies
+                : providerTVShows;
+              const mediaGenres = isMovieCategory ? genres : tvGenres;
+              const mediaCategories = isMovieCategory
+                ? categories
+                : tvCategories;
 
-          return (
-            <>
-              {/* Media Carousels */}
-              {providerMedia.length > 0 && (
-                <MediaCarousel
-                  medias={providerMedia}
-                  category={selectedProvider.name}
-                  isTVShow={!isMovieCategory}
-                  movieWidth={movieWidth}
-                  isMobile={isMobile}
-                  carouselRefs={carouselRefs}
-                />
-              )}
-              {/* Categories and Genres */}
-              {mediaCategories.map((category) => (
-                <MediaCarousel
-                  key={category.name}
-                  medias={
-                    isMovieCategory
-                      ? categoryMovies[category.name] || []
-                      : categoryTVShows[category.name] || []
-                  }
-                  category={category.name}
-                  isTVShow={!isMovieCategory}
-                  movieWidth={movieWidth}
-                  isMobile={isMobile}
-                  carouselRefs={carouselRefs}
-                />
-              ))}
-              {mediaGenres.map((genre) => (
-                <MediaCarousel
-                  key={genre.id}
-                  medias={
-                    isMovieCategory
-                      ? genreMovies[genre.id] || []
-                      : genreTVShows[genre.id] || []
-                  }
-                  category={genre.name}
-                  isTVShow={!isMovieCategory}
-                  movieWidth={movieWidth}
-                  isMobile={isMobile}
-                  carouselRefs={carouselRefs}
-                />
-              ))}
-            </>
-          );
-        })()}
+              return (
+                <>
+                  {/* Media Carousels */}
+                  {providerMedia.length > 0 && (
+                    <MediaCarousel
+                      medias={providerMedia}
+                      category={selectedProvider.name}
+                      isTVShow={!isMovieCategory}
+                      movieWidth={movieWidth}
+                      isMobile={isMobile}
+                      carouselRefs={carouselRefs}
+                    />
+                  )}
+                  {/* Categories and Genres */}
+                  {mediaCategories.map((category) => (
+                    <MediaCarousel
+                      key={category.name}
+                      medias={
+                        isMovieCategory
+                          ? categoryMovies[category.name] || []
+                          : categoryTVShows[category.name] || []
+                      }
+                      category={category.name}
+                      isTVShow={!isMovieCategory}
+                      movieWidth={movieWidth}
+                      isMobile={isMobile}
+                      carouselRefs={carouselRefs}
+                    />
+                  ))}
+                  {mediaGenres.map((genre) => (
+                    <MediaCarousel
+                      key={genre.id}
+                      medias={
+                        isMovieCategory
+                          ? genreMovies[genre.id] || []
+                          : genreTVShows[genre.id] || []
+                      }
+                      category={genre.name}
+                      isTVShow={!isMovieCategory}
+                      movieWidth={movieWidth}
+                      isMobile={isMobile}
+                      carouselRefs={carouselRefs}
+                    />
+                  ))}
+                </>
+              );
+            })()}
       </div>
 
       <ScrollToTopButton />
