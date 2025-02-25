@@ -13,6 +13,8 @@ import { conf } from "@/setup/config";
 
 import "./discover.css";
 import { CategoryButtons } from "./components/CategoryButtons";
+import { LazyMediaCarousel } from "./components/LazyMediaCarousel";
+import { LazyTabContent } from "./components/LazyTabContent";
 import { MediaCarousel } from "./components/MediaCarousel";
 import { RandomMovieButton } from "./components/RandomMovieButton";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
@@ -115,13 +117,22 @@ export function DiscoverContent() {
   // Hooks
   const navigate = useNavigate();
   const { isMobile } = useIsMobile();
-  const { genreMedia: genreMovies, categoryMedia: categoryMovies } =
-    useTMDBData(genres, categories, "movie");
-  const { genreMedia: genreTVShows, categoryMedia: categoryTVShows } =
-    useTMDBData(tvGenres, tvCategories, "tv");
+  const { genreMedia: genreMovies } = useTMDBData(genres, categories, "movie");
+  // const { genreMedia: genreTVShows } = useTMDBData(
+  //   tvGenres,
+  //   tvCategories,
+  //   "tv",
+  // );
+
+  // Only load data for the active tab
+  const isMoviesTab = selectedCategory === "movies";
+  const isTVShowsTab = selectedCategory === "tvshows";
+  const isEditorPicksTab = selectedCategory === "editorpicks";
 
   // Fetch TV show genres
   useEffect(() => {
+    if (!isTVShowsTab) return;
+
     const fetchTVGenres = async () => {
       try {
         const data = await get<any>("/genre/tv/list", {
@@ -136,10 +147,12 @@ export function DiscoverContent() {
     };
 
     fetchTVGenres();
-  }, []);
+  }, [isTVShowsTab]);
 
   // Fetch Movie genres
   useEffect(() => {
+    if (!isMoviesTab) return;
+
     const fetchGenres = async () => {
       try {
         const data = await get<any>("/genre/movie/list", {
@@ -155,10 +168,12 @@ export function DiscoverContent() {
     };
 
     fetchGenres();
-  }, []);
+  }, [isMoviesTab]);
 
   // Fetch Editor Picks Movies
   useEffect(() => {
+    if (!isEditorPicksTab) return;
+
     const fetchEditorPicksMovies = async () => {
       try {
         const moviePromises = EDITOR_PICKS_MOVIES.map((item) =>
@@ -178,13 +193,13 @@ export function DiscoverContent() {
       }
     };
 
-    if (selectedCategory === "editorpicks") {
-      fetchEditorPicksMovies();
-    }
-  }, [selectedCategory]);
+    fetchEditorPicksMovies();
+  }, [isEditorPicksTab]);
 
   // Fetch Editor Picks TV Shows
   useEffect(() => {
+    if (!isEditorPicksTab) return;
+
     const fetchEditorPicksTVShows = async () => {
       try {
         const tvShowPromises = EDITOR_PICKS_TV_SHOWS.map((item) =>
@@ -204,10 +219,8 @@ export function DiscoverContent() {
       }
     };
 
-    if (selectedCategory === "editorpicks") {
-      fetchEditorPicksTVShows();
-    }
-  }, [selectedCategory]);
+    fetchEditorPicksTVShows();
+  }, [isEditorPicksTab]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -309,6 +322,92 @@ export function DiscoverContent() {
     );
   };
 
+  // Render Movies content with lazy loading
+  const renderMoviesContent = () => {
+    return (
+      <>
+        {/* Provider Movies */}
+        {providerMovies.length > 0 && (
+          <MediaCarousel
+            medias={providerMovies}
+            category={selectedProvider.name}
+            isTVShow={false}
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        )}
+
+        {/* Categories */}
+        {categories.map((category) => (
+          <LazyMediaCarousel
+            key={category.name}
+            category={category}
+            mediaType="movie"
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        ))}
+
+        {/* Genres */}
+        {genres.map((genre) => (
+          <LazyMediaCarousel
+            key={genre.id}
+            genre={genre}
+            mediaType="movie"
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        ))}
+      </>
+    );
+  };
+
+  // Render TV Shows content with lazy loading
+  const renderTVShowsContent = () => {
+    return (
+      <>
+        {/* Provider TV Shows */}
+        {providerTVShows.length > 0 && (
+          <MediaCarousel
+            medias={providerTVShows}
+            category={selectedProvider.name}
+            isTVShow
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        )}
+
+        {/* Categories */}
+        {tvCategories.map((category) => (
+          <LazyMediaCarousel
+            key={category.name}
+            category={category}
+            mediaType="tv"
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        ))}
+
+        {/* Genres */}
+        {tvGenres.map((genre) => (
+          <LazyMediaCarousel
+            key={genre.id}
+            genre={genre}
+            mediaType="tv"
+            movieWidth={movieWidth}
+            isMobile={isMobile}
+            carouselRefs={carouselRefs}
+          />
+        ))}
+      </>
+    );
+  };
+
   return (
     <div>
       {/* Random Movie Button */}
@@ -385,67 +484,22 @@ export function DiscoverContent() {
         )}
       </div>
 
-      {/* Content Section */}
+      {/* Content Section with Lazy Loading Tabs */}
       <div className="w-full md:w-[90%] max-w-[2400px] mx-auto">
-        {selectedCategory === "editorpicks"
-          ? renderEditorPicksContent()
-          : (() => {
-              const isMovieCategory = selectedCategory === "movies";
-              const providerMedia = isMovieCategory
-                ? providerMovies
-                : providerTVShows;
-              const mediaGenres = isMovieCategory ? genres : tvGenres;
-              const mediaCategories = isMovieCategory
-                ? categories
-                : tvCategories;
+        {/* Movies Tab */}
+        <LazyTabContent isActive={isMoviesTab}>
+          {renderMoviesContent()}
+        </LazyTabContent>
 
-              return (
-                <>
-                  {/* Media Carousels */}
-                  {providerMedia.length > 0 && (
-                    <MediaCarousel
-                      medias={providerMedia}
-                      category={selectedProvider.name}
-                      isTVShow={!isMovieCategory}
-                      movieWidth={movieWidth}
-                      isMobile={isMobile}
-                      carouselRefs={carouselRefs}
-                    />
-                  )}
-                  {/* Categories and Genres */}
-                  {mediaCategories.map((category) => (
-                    <MediaCarousel
-                      key={category.name}
-                      medias={
-                        isMovieCategory
-                          ? categoryMovies[category.name] || []
-                          : categoryTVShows[category.name] || []
-                      }
-                      category={category.name}
-                      isTVShow={!isMovieCategory}
-                      movieWidth={movieWidth}
-                      isMobile={isMobile}
-                      carouselRefs={carouselRefs}
-                    />
-                  ))}
-                  {mediaGenres.map((genre) => (
-                    <MediaCarousel
-                      key={genre.id}
-                      medias={
-                        isMovieCategory
-                          ? genreMovies[genre.id] || []
-                          : genreTVShows[genre.id] || []
-                      }
-                      category={genre.name}
-                      isTVShow={!isMovieCategory}
-                      movieWidth={movieWidth}
-                      isMobile={isMobile}
-                      carouselRefs={carouselRefs}
-                    />
-                  ))}
-                </>
-              );
-            })()}
+        {/* TV Shows Tab */}
+        <LazyTabContent isActive={isTVShowsTab}>
+          {renderTVShowsContent()}
+        </LazyTabContent>
+
+        {/* Editor Picks Tab */}
+        <LazyTabContent isActive={isEditorPicksTab}>
+          {renderEditorPicksContent()}
+        </LazyTabContent>
       </div>
 
       <ScrollToTopButton />
