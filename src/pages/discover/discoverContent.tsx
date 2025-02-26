@@ -103,9 +103,6 @@ export function DiscoverContent() {
     name: "",
     id: "",
   });
-  const [movieWidth, setMovieWidth] = useState(
-    window.innerWidth < 600 ? "150px" : "200px",
-  );
   const [providerMovies, setProviderMovies] = useState<Movie[]>([]);
   const [providerTVShows, setProviderTVShows] = useState<any[]>([]);
   const [editorPicksMovies, setEditorPicksMovies] = useState<Movie[]>([]);
@@ -223,14 +220,6 @@ export function DiscoverContent() {
   }, [isEditorPicksTab]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setMovieWidth(window.innerWidth < 600 ? "150px" : "200px");
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
     if (countdown !== null && countdown > 0) {
       countdownInterval = setInterval(() => {
@@ -306,7 +295,6 @@ export function DiscoverContent() {
           medias={editorPicksMovies}
           category="Editor Picks Movies"
           isTVShow={false}
-          movieWidth={movieWidth}
           isMobile={isMobile}
           carouselRefs={carouselRefs}
         />
@@ -314,7 +302,6 @@ export function DiscoverContent() {
           medias={editorPicksTVShows}
           category="Editor Picks Shows"
           isTVShow
-          movieWidth={movieWidth}
           isMobile={isMobile}
           carouselRefs={carouselRefs}
         />
@@ -332,7 +319,6 @@ export function DiscoverContent() {
             medias={providerMovies}
             category={selectedProvider.name}
             isTVShow={false}
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
@@ -344,7 +330,6 @@ export function DiscoverContent() {
             key={category.name}
             category={category}
             mediaType="movie"
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
@@ -356,7 +341,6 @@ export function DiscoverContent() {
             key={genre.id}
             genre={genre}
             mediaType="movie"
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
@@ -375,7 +359,6 @@ export function DiscoverContent() {
             medias={providerTVShows}
             category={selectedProvider.name}
             isTVShow
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
@@ -387,7 +370,6 @@ export function DiscoverContent() {
             key={category.name}
             category={category}
             mediaType="tv"
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
@@ -399,7 +381,6 @@ export function DiscoverContent() {
             key={genre.id}
             genre={genre}
             mediaType="tv"
-            movieWidth={movieWidth}
             isMobile={isMobile}
             carouselRefs={carouselRefs}
           />
