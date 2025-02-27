@@ -1,11 +1,19 @@
-import { Request, Response, NextFunction } from 'express';
-import fs from 'fs/promises';
-import path from 'path';
-import { renderMetaTags } from './metaRenderer';
+import fs from "fs/promises";
+import path from "path";
 
-export async function metaMiddleware(req: Request, res: Response, next: NextFunction) {
-  const match = req.path.match(/^\/media\/(tmdb-tv|tmdb-movie)-(\d+)-([^/]+)(?:\/(\d+))?(?:\/(\d+))?$/);
-  
+import { NextFunction, Request, Response } from "express";
+
+import { renderMetaTags } from "./metaRenderer";
+
+export async function metaMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const match = req.path.match(
+    /^\/media\/(tmdb-tv|tmdb-movie)-(\d+)-([^/]+)(?:\/(\d+))?(?:\/(\d+))?$/,
+  );
+
   if (!match) {
     return next();
   }
@@ -14,24 +22,24 @@ export async function metaMiddleware(req: Request, res: Response, next: NextFunc
 
   try {
     // Read the index.html template
-    const indexPath = path.resolve(__dirname, '../index.html');
-    let html = await fs.readFile(indexPath, 'utf-8');
+    const indexPath = path.resolve(__dirname, "../index.html");
+    let html = await fs.readFile(indexPath, "utf-8");
 
     // Generate meta tags
     const metaTags = await renderMetaTags({
       type,
       id,
       seasonID,
-      episodeID
+      episodeID,
     });
 
     // Replace the meta tags placeholder
-    html = html.replace('<!--META_TAGS-->', metaTags);
+    html = html.replace("<!--META_TAGS-->", metaTags);
 
     // Send the modified HTML
     res.send(html);
   } catch (error) {
-    console.error('Error in meta middleware:', error);
+    console.error("Error in meta middleware:", error);
     next();
   }
-} 
+}
