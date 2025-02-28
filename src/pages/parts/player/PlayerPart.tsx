@@ -200,6 +200,7 @@ export function PlayerPart(props: PlayerPartProps) {
       </Player.BottomControls>
 
       <Player.VolumeChangedPopout />
+      <Player.SubtitleDelayPopout />
 
       <SkipIntroButton controlsShowing={showTargets} skipTime={skiptime} />
     </Player.Container>
