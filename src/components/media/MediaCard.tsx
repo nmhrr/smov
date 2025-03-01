@@ -1,10 +1,15 @@
 import classNames from "classnames";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCopyToClipboard } from "react-use";
 
-import { mediaItemToId } from "@/backend/metadata/tmdb";
+import {
+  getMediaDetails,
+  mediaItemToId,
+  mediaTypeToTMDB,
+} from "@/backend/metadata/tmdb";
+import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
@@ -14,6 +19,7 @@ import { MediaBookmarkButton } from "./MediaBookmark";
 import { Button } from "../buttons/Button";
 import { IconPatch } from "../buttons/IconPatch";
 import { Icon, Icons } from "../Icon";
+import { InfoPopout } from "./InfoPopout";
 
 export interface MediaCardProps {
   media: MediaItem;
@@ -363,19 +369,45 @@ function MediaCardContent({
 export function MediaCard(props: MediaCardProps) {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-
-  const handleMouseLeave = () => {
-    const id = setTimeout(() => {
-      setOverlayVisible(false);
-    }, 2000); // 2 seconds
-    setTimeoutId(id);
-  };
+  const [showHoverInfo, setShowHoverInfo] = useState(false);
+  const hoverTimer = useRef<NodeJS.Timeout>();
+  const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const [isHoveringInfo, setIsHoveringInfo] = useState(false);
 
   const handleMouseEnter = () => {
+    // Clear any existing hover info first
+    setShowHoverInfo(false);
+    setIsHoveringCard(true);
+
     if (timeoutId) {
       clearTimeout(timeoutId);
       setTimeoutId(null);
     }
+
+    if (hoverTimer.current) {
+      clearTimeout(hoverTimer.current);
+    }
+
+    hoverTimer.current = setTimeout(() => {
+      setShowHoverInfo(true);
+    }, 500); // 0.5 second delay
+  };
+
+  const handleMouseLeave = () => {
+    setIsHoveringCard(false);
+    if (hoverTimer.current) {
+      clearTimeout(hoverTimer.current);
+    }
+
+    // Only hide if not hovering info card
+    if (!isHoveringInfo) {
+      setShowHoverInfo(false);
+    }
+
+    const id = setTimeout(() => {
+      setOverlayVisible(false);
+    }, 2000);
+    setTimeoutId(id);
   };
 
   const isReleased = useCallback(
@@ -397,6 +429,17 @@ export function MediaCard(props: MediaCardProps) {
       )}/${encodeURIComponent(props.series.episodeId)}`;
     }
   }
+
+  const mediaWithHoverHandlers = {
+    ...props.media,
+    onHoverInfoEnter: () => setIsHoveringInfo(true),
+    onHoverInfoLeave: () => {
+      setIsHoveringInfo(false);
+      if (!isHoveringCard) {
+        setShowHoverInfo(false);
+      }
+    },
+  };
 
   const content = (
     <MediaCardContent
@@ -420,6 +463,8 @@ export function MediaCard(props: MediaCardProps) {
             "tabbable",
             props.closable ? "hover:cursor-default" : "",
           )}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {content}
         </Link>
@@ -434,6 +479,8 @@ export function MediaCard(props: MediaCardProps) {
           {content}
         </div>
       )}
+
+      <InfoPopout media={mediaWithHoverHandlers} visible={showHoverInfo} />
     </div>
   );
 }
