@@ -92,7 +92,6 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
       onMouseEnter={() => media.onHoverInfoEnter?.()}
       onMouseLeave={() => media.onHoverInfoLeave?.()}
     >
-      <div className="absolute inset-0 -z-10 opacity-30 bg-mediaCard-hoverBackground" />
       <div className="p-0">
         {isLoading ? (
           <InfoSkeleton />
