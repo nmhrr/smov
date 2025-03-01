@@ -1,15 +1,10 @@
 import classNames from "classnames";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCopyToClipboard } from "react-use";
 
-import {
-  getMediaDetails,
-  mediaItemToId,
-  mediaTypeToTMDB,
-} from "@/backend/metadata/tmdb";
-import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
+import { mediaItemToId } from "@/backend/metadata/tmdb";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
@@ -65,12 +60,14 @@ function MediaCardContent({
   handleMouseEnter,
   handleMouseLeave,
   link,
+  isHoveringCard,
 }: MediaCardProps & {
   overlayVisible: boolean;
   setOverlayVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
   link: string;
+  isHoveringCard: boolean;
 }) {
   const { t } = useTranslation();
   const percentageString = `${Math.round(percentage ?? 0).toFixed(0)}%`;
@@ -89,6 +86,8 @@ function MediaCardContent({
   const [hasCopied, setHasCopied] = useState(false);
 
   const [hasCopiedID, setHasCopiedID] = useState(false);
+
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   if (closable) {
     setOverlayVisible(false);
@@ -134,6 +133,25 @@ function MediaCardContent({
     setTimeout(() => setHasCopiedID(false), 2000);
   };
 
+  // Modified close button handler
+  const handleCloseOverlay = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setIsTransitioning(true);
+
+    // Small delay to ensure transition state is applied before changing overlay visibility
+    setTimeout(() => {
+      setOverlayVisible(false);
+      // Give time for any animations to complete before removing transition state
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 300); // Match this with your animation duration
+    }, 10);
+  };
+
   return (
     <div
       className={classNames("media-card-content", { jiggle: closable })}
@@ -142,7 +160,9 @@ function MediaCardContent({
     >
       <Flare.Base
         className={`group -m-[0.705em] rounded-xl bg-background-main transition-colors duration-300 focus:relative focus:z-10 ${
-          canLink ? "hover:bg-mediaCard-hoverBackground tabbable" : ""
+          canLink && !overlayVisible
+            ? "hover:bg-mediaCard-hoverBackground tabbable"
+            : ""
         }`}
         tabIndex={canLink ? 0 : -1}
         onKeyUp={(e) => e.key === "Enter" && e.currentTarget.click()}
@@ -157,7 +177,13 @@ function MediaCardContent({
         />
         <Flare.Child
           className={`pointer-events-auto relative mb-2 p-[0.4em] transition-transform duration-300 ${
-            canLink ? "group-hover:scale-95" : "opacity-60"
+            canLink && !overlayVisible
+              ? isHoveringCard || isTransitioning
+                ? "scale-95"
+                : ""
+              : overlayVisible
+                ? "scale-95"
+                : ""
           }`}
         >
           <div
@@ -308,7 +334,7 @@ function MediaCardContent({
                     "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md", // Background
                     "border-2 border-gray-400 border-opacity-20", // Border
                   )}
-                  onClick={() => setOverlayVisible(false)}
+                  onClick={handleCloseOverlay}
                 >
                   Close
                 </Button>
@@ -350,6 +376,7 @@ function MediaCardContent({
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
+                  e.stopPropagation();
                   setOverlayVisible(!overlayVisible);
                 }}
               >
@@ -375,8 +402,6 @@ export function MediaCard(props: MediaCardProps) {
   const [isHoveringInfo, setIsHoveringInfo] = useState(false);
 
   const handleMouseEnter = () => {
-    // Clear any existing hover info first
-    setShowHoverInfo(false);
     setIsHoveringCard(true);
 
     if (timeoutId) {
@@ -399,8 +424,8 @@ export function MediaCard(props: MediaCardProps) {
       clearTimeout(hoverTimer.current);
     }
 
-    // Only hide if not hovering info card
-    if (!isHoveringInfo) {
+    // Only hide if not hovering info card and overlay is not visible
+    if (!isHoveringInfo && !overlayVisible) {
       setShowHoverInfo(false);
     }
 
@@ -409,6 +434,9 @@ export function MediaCard(props: MediaCardProps) {
     }, 2000);
     setTimeoutId(id);
   };
+
+  // Modified to show popout during overlay visibility
+  const shouldShowHoverInfo = showHoverInfo || overlayVisible;
 
   const isReleased = useCallback(
     () => checkReleased(props.media),
@@ -435,7 +463,7 @@ export function MediaCard(props: MediaCardProps) {
     onHoverInfoEnter: () => setIsHoveringInfo(true),
     onHoverInfoLeave: () => {
       setIsHoveringInfo(false);
-      if (!isHoveringCard) {
+      if (!isHoveringCard && !overlayVisible) {
         setShowHoverInfo(false);
       }
     },
@@ -449,6 +477,7 @@ export function MediaCard(props: MediaCardProps) {
       handleMouseEnter={handleMouseEnter}
       handleMouseLeave={handleMouseLeave}
       link={link}
+      isHoveringCard={isHoveringCard}
     />
   );
 
@@ -475,12 +504,17 @@ export function MediaCard(props: MediaCardProps) {
             "tabbable",
             props.closable ? "hover:cursor-default" : "",
           )}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {content}
         </div>
       )}
 
-      <InfoPopout media={mediaWithHoverHandlers} visible={showHoverInfo} />
+      <InfoPopout
+        media={mediaWithHoverHandlers}
+        visible={shouldShowHoverInfo}
+      />
     </div>
   );
 }
