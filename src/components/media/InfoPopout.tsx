@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getMediaBackdrop, getMediaDetails } from "@/backend/metadata/tmdb";
 import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
@@ -48,9 +48,33 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [backdrop, setBackdrop] = useState<string | undefined>();
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    async function fetchDescription() {
+    // Start timer when user hovers
+    if (visible && !shouldShow) {
+      hoverTimerRef.current = setTimeout(() => {
+        setShouldShow(true);
+      }, 500);
+    }
+
+    // Clear timer when hover ends
+    if (!visible && shouldShow) {
+      setShouldShow(false);
+    }
+
+    // Clear timer on unmount or when visibility changes
+    return () => {
+      if (hoverTimerRef.current) {
+        clearTimeout(hoverTimerRef.current);
+        hoverTimerRef.current = null;
+      }
+    };
+  }, [visible, shouldShow]);
+
+  useEffect(() => {
+    async function fetchData() {
       if (dataLoaded) return; // Skip if already loaded
 
       setIsLoading(true);
@@ -69,15 +93,14 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
       }
     }
 
-    // Start loading data as soon as the user might need it
-    // This happens when the parent component indicates a hover via media.onHoverInfoEnter
-    if (media.onHoverInfoEnter && !dataLoaded) {
-      fetchDescription();
+    // Only fetch data after the delay has passed and the popout should be shown
+    if (shouldShow && !dataLoaded && !isLoading) {
+      fetchData();
     }
-  }, [media.id, media.type, media.onHoverInfoEnter, dataLoaded]);
+  }, [media.id, media.type, dataLoaded, shouldShow, isLoading]);
 
-  // Determine if we should show the popout based on visible prop and data loading state
-  const showPopout = visible && (dataLoaded || isLoading);
+  // Only show popout after the hover delay has passed
+  const showPopout = visible && shouldShow && (dataLoaded || isLoading);
 
   return (
     <div
@@ -96,14 +119,13 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
         {isLoading ? (
           <InfoSkeleton />
         ) : (
-          <>
-            <div className="relative h-40">
-              <div className="absolute inset-0" />
-              {backdrop && (
+          <div className="relative">
+            {backdrop && (
+              <div className="absolute top-0 left-0 right-0 h-full z-0">
                 <img
                   src={backdrop}
                   alt={media.title}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-48 object-cover"
                   style={{
                     maskImage:
                       "linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 60px)",
@@ -111,35 +133,39 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
                       "linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 60px)",
                   }}
                 />
-              )}
-            </div>
-            <div className="px-4 pb-4 mt-[-10px]">
-              <h3 className="text-lg font-bold text-white mb-2">
-                {media.title}
-              </h3>
-              {description && (
-                <p className="text-sm text-white/90 mb-4 line-clamp-4">
-                  {description}
-                </p>
-              )}
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="px-2 py-1 rounded bg-mediaCard-hoverBackground text-type-secondary">
-                  Type:{" "}
-                  {media.type.charAt(0).toUpperCase() + media.type.slice(1)}
+              </div>
+            )}
+
+            <div className="relative z-10">
+              <div className="h-40" /> {/* Spacer for backdrop height */}
+              <div className="px-4 pb-4 mt-[-30px]">
+                <div className="flex flex-wrap gap-1 mb-2">
+                  <div className="px-1.5 py-0.5 rounded bg-pill-background text-white text-xs border border-white/20">
+                    {media.type.charAt(0).toUpperCase() + media.type.slice(1)}
+                  </div>
+                  {media.year && (
+                    <div className="px-1.5 py-0.5 rounded bg-pill-background text-white text-xs border border-white/20">
+                      {media.year}
+                    </div>
+                  )}
+                  {media.release_date && (
+                    <div className="px-1.5 py-0.5 rounded bg-pill-background text-white text-xs border border-white/20">
+                      {media.release_date.toLocaleDateString()}
+                    </div>
+                  )}
                 </div>
-                {media.year && (
-                  <div className="px-2 py-1 rounded bg-mediaCard-hoverBackground text-type-secondary">
-                    Year: {media.year}
-                  </div>
-                )}
-                {media.release_date && (
-                  <div className="px-2 py-1 rounded bg-mediaCard-hoverBackground text-type-secondary">
-                    Release: {media.release_date.toLocaleDateString()}
-                  </div>
+
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {media.title}
+                </h3>
+                {description && (
+                  <p className="text-sm text-white/90 mb-4 line-clamp-4">
+                    {description}
+                  </p>
                 )}
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

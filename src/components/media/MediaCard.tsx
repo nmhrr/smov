@@ -415,7 +415,7 @@ export function MediaCard(props: MediaCardProps) {
 
     hoverTimer.current = setTimeout(() => {
       setShowHoverInfo(true);
-    }, 500); // 0.5 second delay
+    }, 300); // 0.3 second delay
   };
 
   const handleMouseLeave = () => {
