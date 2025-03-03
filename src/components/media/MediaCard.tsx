@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCopyToClipboard } from "react-use";
@@ -8,6 +8,7 @@ import { mediaItemToId } from "@/backend/metadata/tmdb";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
+import { usePreferencesStore } from "@/stores/preferences";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { MediaBookmarkButton } from "./MediaBookmark";
@@ -400,6 +401,20 @@ export function MediaCard(props: MediaCardProps) {
   const hoverTimer = useRef<NodeJS.Timeout>();
   const [isHoveringCard, setIsHoveringCard] = useState(false);
   const [isHoveringInfo, setIsHoveringInfo] = useState(false);
+  const [isMediumScreen, setIsMediumScreen] = useState(false);
+
+  const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMediumScreen(window.innerWidth >= 768); // md breakpoint
+    };
+
+    checkScreenSize();
+
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const handleMouseEnter = () => {
     setIsHoveringCard(true);
@@ -413,9 +428,11 @@ export function MediaCard(props: MediaCardProps) {
       clearTimeout(hoverTimer.current);
     }
 
-    hoverTimer.current = setTimeout(() => {
-      setShowHoverInfo(true);
-    }, 300); // 0.3 second delay
+    if (isMediumScreen) {
+      hoverTimer.current = setTimeout(() => {
+        setShowHoverInfo(true);
+      }, 300); // 0.3 second delay
+    }
   };
 
   const handleMouseLeave = () => {
@@ -435,8 +452,8 @@ export function MediaCard(props: MediaCardProps) {
     setTimeoutId(id);
   };
 
-  // Modified to show popout during overlay visibility
-  const shouldShowHoverInfo = showHoverInfo || overlayVisible;
+  const shouldShowHoverInfo =
+    (showHoverInfo || overlayVisible) && isMediumScreen;
 
   const isReleased = useCallback(
     () => checkReleased(props.media),
@@ -511,10 +528,12 @@ export function MediaCard(props: MediaCardProps) {
         </div>
       )}
 
-      <InfoPopout
-        media={mediaWithHoverHandlers}
-        visible={shouldShowHoverInfo}
-      />
+      {enablePopDetails && (
+        <InfoPopout
+          media={mediaWithHoverHandlers}
+          visible={shouldShowHoverInfo}
+        />
+      )}
     </div>
   );
 }

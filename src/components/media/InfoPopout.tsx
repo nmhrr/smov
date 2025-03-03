@@ -158,7 +158,7 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
         "backdrop-blur-md bg-mediaCard-hoverBackground border border-mediaCard-hoverAccent/40",
         "z-[999]",
         showPopout
-          ? "opacity-100 translate-x-0"
+          ? "opacity-100"
           : "opacity-0 -translate-x-4 pointer-events-none",
       )}
       onMouseEnter={() => media.onHoverInfoEnter?.()}

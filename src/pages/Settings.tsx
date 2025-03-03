@@ -146,6 +146,9 @@ export function SettingsPage() {
   const enableDiscover = usePreferencesStore((s) => s.enableDiscover);
   const setEnableDiscover = usePreferencesStore((s) => s.setEnableDiscover);
 
+  const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
+  const setEnablePopDetails = usePreferencesStore((s) => s.setEnablePopDetails);
+
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const setEnableSourceOrder = usePreferencesStore(
     (s) => s.setEnableSourceOrder,
@@ -179,6 +182,7 @@ export function SettingsPage() {
     enableThumbnails,
     enableAutoplay,
     enableDiscover,
+    enablePopDetails,
     sourceOrder,
     enableSourceOrder,
     proxyTmdb,
@@ -253,6 +257,7 @@ export function SettingsPage() {
     setEnableThumbnails(state.enableThumbnails.state);
     setEnableAutoplay(state.enableAutoplay.state);
     setEnableDiscover(state.enableDiscover.state);
+    setEnablePopDetails(state.enablePopDetails.state);
     setSourceOrder(state.sourceOrder.state);
     setAppLanguage(state.appLanguage.state);
     setTheme(state.theme.state);
@@ -285,6 +290,7 @@ export function SettingsPage() {
     state,
     setEnableAutoplay,
     setEnableDiscover,
+    setEnablePopDetails,
     setSourceOrder,
     setAppLanguage,
     setTheme,
@@ -338,8 +344,6 @@ export function SettingsPage() {
             setEnableThumbnails={state.enableThumbnails.set}
             enableAutoplay={state.enableAutoplay.state}
             setEnableAutoplay={state.enableAutoplay.set}
-            enableDiscover={state.enableDiscover.state}
-            setEnableDiscover={state.enableDiscover.set}
             sourceOrder={availableSources}
             setSourceOrder={state.sourceOrder.set}
             enableSourceOrder={state.enableSourceOrder.state}
@@ -351,6 +355,10 @@ export function SettingsPage() {
             active={previewTheme ?? "default"}
             inUse={activeTheme ?? "default"}
             setTheme={setThemeWithPreview}
+            enableDiscover={state.enableDiscover.state}
+            setEnableDiscover={state.enableDiscover.set}
+            enablePopDetails={state.enablePopDetails.state}
+            setEnablePopDetails={state.enablePopDetails.set}
           />
         </div>
         <div id="settings-captions" className="mt-28">
