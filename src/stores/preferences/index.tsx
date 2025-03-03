@@ -26,7 +26,7 @@ export const usePreferencesStore = create(
       enableThumbnails: false,
       enableAutoplay: true,
       enableDiscover: true,
-      enablePopDetails: false,
+      enablePopDetails: true,
       sourceOrder: [],
       enableSourceOrder: false,
       proxyTmdb: false,
