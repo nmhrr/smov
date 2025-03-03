@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { getMediaBackdrop, getMediaDetails } from "@/backend/metadata/tmdb";
 import {
@@ -79,20 +79,67 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
 
   const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
 
+  const fetchData = useCallback(async () => {
+    if (!enablePopDetails) return;
+    if (dataLoaded) return; // Skip if already loaded
+
+    setIsLoading(true);
+    try {
+      const type =
+        media.type === "movie" ? TMDBContentTypes.MOVIE : TMDBContentTypes.TV;
+      const details = await getMediaDetails(media.id, type);
+      const backdropUrl = getMediaBackdrop(details.backdrop_path);
+      setDescription(details.overview || undefined);
+      setBackdrop(backdropUrl);
+
+      if (type === TMDBContentTypes.MOVIE) {
+        const movieDetails = details as TMDBMovieData;
+        setAdditionalDetails({
+          runtime: movieDetails.runtime,
+          genres: movieDetails.genres,
+          language: movieDetails.original_language,
+          voteAverage: movieDetails.vote_average,
+          voteCount: movieDetails.vote_count,
+        });
+      } else {
+        const showDetails = details as TMDBShowData;
+        setAdditionalDetails({
+          episodes: showDetails.number_of_episodes,
+          seasons: showDetails.number_of_seasons,
+          genres: showDetails.genres,
+          language: showDetails.original_language,
+          voteAverage: showDetails.vote_average,
+          voteCount: showDetails.vote_count,
+        });
+      }
+
+      setDataLoaded(true);
+    } catch (err) {
+      console.error("Failed to fetch media details:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [enablePopDetails, dataLoaded, media.type, media.id]);
+
+  // Start loading data when user hovers
+  useEffect(() => {
+    if (visible && !dataLoaded && !isLoading && enablePopDetails) {
+      fetchData();
+    }
+  }, [visible, dataLoaded, isLoading, enablePopDetails, fetchData]);
+
   useEffect(() => {
     // Start timer when user hovers
     if (visible && !shouldShow) {
       hoverTimerRef.current = setTimeout(() => {
         setShouldShow(true);
-      }, 500);
+      }, 200); // 0.2s
     }
 
-    // Clear timer when hover ends
     if (!visible && shouldShow) {
       setShouldShow(false);
     }
 
-    // Clear timer on unmount or when visibility changes
     return () => {
       if (hoverTimerRef.current) {
         clearTimeout(hoverTimerRef.current);
@@ -101,65 +148,7 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
     };
   }, [visible, shouldShow]);
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!enablePopDetails) return;
-      if (dataLoaded) return; // Skip if already loaded
-
-      setIsLoading(true);
-      try {
-        const type =
-          media.type === "movie" ? TMDBContentTypes.MOVIE : TMDBContentTypes.TV;
-        const details = await getMediaDetails(media.id, type);
-        const backdropUrl = getMediaBackdrop(details.backdrop_path);
-        setDescription(details.overview || undefined);
-        setBackdrop(backdropUrl);
-
-        // Store additional details based on media type
-        if (type === TMDBContentTypes.MOVIE) {
-          const movieDetails = details as TMDBMovieData;
-          setAdditionalDetails({
-            runtime: movieDetails.runtime,
-            genres: movieDetails.genres,
-            language: movieDetails.original_language,
-            voteAverage: movieDetails.vote_average,
-            voteCount: movieDetails.vote_count,
-          });
-        } else {
-          const showDetails = details as TMDBShowData;
-          setAdditionalDetails({
-            episodes: showDetails.number_of_episodes,
-            seasons: showDetails.number_of_seasons,
-            genres: showDetails.genres,
-            language: showDetails.original_language,
-            voteAverage: showDetails.vote_average,
-            voteCount: showDetails.vote_count,
-          });
-        }
-
-        setDataLoaded(true);
-      } catch (err) {
-        console.error("Failed to fetch media details:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    // Only fetch data after the delay has passed and the popout should be shown
-    if (shouldShow && !dataLoaded && !isLoading) {
-      fetchData();
-    }
-  }, [
-    media.id,
-    media.type,
-    dataLoaded,
-    shouldShow,
-    isLoading,
-    enablePopDetails,
-  ]);
-
-  // Only show popout after the hover delay has passed
-  const showPopout = visible && shouldShow && (dataLoaded || isLoading);
+  const showPopout = visible && shouldShow;
 
   const formatRuntime = (minutes?: number | null) => {
     if (!minutes) return null;
