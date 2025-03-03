@@ -40,19 +40,26 @@ function InfoSkeleton() {
           }}
         />
       </div>
-      <div className="px-4 pb-4 mt-[-10px]">
+      <div className="px-4 pb-4 mt-[-30px]">
         <div className="h-7 w-3/4 bg-white/10 rounded mb-2" /> {/* Title */}
         <div className="space-y-2 mb-4">
           {/* Description */}
-          <div className="h-4 bg-mediaCard-hoverBackground rounded w-full" />
-          <div className="h-4 bg-mediaCard-hoverBackground rounded w-full" />
-          <div className="h-4 bg-mediaCard-hoverBackground rounded w-full" />
-          <div className="h-4 bg-mediaCard-hoverBackground rounded w-3/4" />
+          <div className="h-4 bg-white/10 rounded w-full" />
+          <div className="h-4 bg-white/10 rounded w-full" />
+          <div className="h-4 bg-white/10 rounded w-full" />
+          <div className="h-4 bg-white/10 rounded w-3/4" />
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {/* Badges */}
-          <div className="h-7 bg-mediaCard-hoverBackground rounded" />
-          <div className="h-7 bg-mediaCard-hoverBackground rounded" />
+        {/* Additional details */}
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="h-4 bg-white/10 rounded w-3/4" />
+          <div className="h-4 bg-white/10 rounded w-3/4" />
+          <div className="h-4 bg-white/10 rounded w-3/4" />
+        </div>
+        {/* Genres */}
+        <div className="flex flex-wrap gap-1 mt-4">
+          <div className="h-5 w-16 bg-white/10 rounded-full" />
+          <div className="h-5 w-20 bg-white/10 rounded-full" />
+          <div className="h-5 w-14 bg-white/10 rounded-full" />
         </div>
       </div>
     </div>
@@ -154,7 +161,6 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
   // Only show popout after the hover delay has passed
   const showPopout = visible && shouldShow && (dataLoaded || isLoading);
 
-  // Helper function to format runtime as hours and minutes
   const formatRuntime = (minutes?: number | null) => {
     if (!minutes) return null;
     const hours = Math.floor(minutes / 60);
@@ -177,7 +183,7 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
         "backdrop-blur-md bg-mediaCard-hoverBackground border border-mediaCard-hoverAccent/40",
         "z-[999]",
         showPopout
-          ? "opacity-100"
+          ? "opacity-100 translate-x-0"
           : "opacity-0 -translate-x-4 pointer-events-none",
       )}
       onMouseEnter={() => media.onHoverInfoEnter?.()}
