@@ -470,7 +470,13 @@ export function MediaCard(props: MediaCardProps) {
     />
   );
 
-  if (!canLink) return <span>{content}</span>;
+  if (!canLink)
+    return (
+      <span className="relative">
+        {content}{" "}
+        <InfoPopout media={hoverMedia} visible={shouldShowHoverInfo} />
+      </span>
+    );
   return (
     <div className="relative">
       {!overlayVisible ? (
