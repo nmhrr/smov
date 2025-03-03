@@ -93,7 +93,7 @@ function MediaCardContent({
     setOverlayVisible(false);
   }
 
-  if (media.year) {
+  if (isReleased() && media.year) {
     dotListContent.push(media.year.toFixed());
   }
 
@@ -162,9 +162,7 @@ function MediaCardContent({
               ? isHoveringCard
                 ? "scale-95"
                 : ""
-              : overlayVisible
-                ? "scale-95"
-                : ""
+              : "opacity-60"
           }`}
         >
           <div
