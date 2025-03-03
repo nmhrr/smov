@@ -7,6 +7,7 @@ import {
   TMDBMovieData,
   TMDBShowData,
 } from "@/backend/metadata/types/tmdb";
+import { usePreferencesStore } from "@/stores/preferences";
 import { MediaItem } from "@/utils/mediaTypes";
 
 interface InfoPopoutProps {
@@ -69,6 +70,8 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
   );
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
+
   useEffect(() => {
     // Start timer when user hovers
     if (visible && !shouldShow) {
@@ -93,6 +96,7 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
 
   useEffect(() => {
     async function fetchData() {
+      if (!enablePopDetails) return;
       if (dataLoaded) return; // Skip if already loaded
 
       setIsLoading(true);
@@ -138,7 +142,14 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
     if (shouldShow && !dataLoaded && !isLoading) {
       fetchData();
     }
-  }, [media.id, media.type, dataLoaded, shouldShow, isLoading]);
+  }, [
+    media.id,
+    media.type,
+    dataLoaded,
+    shouldShow,
+    isLoading,
+    enablePopDetails,
+  ]);
 
   // Only show popout after the hover delay has passed
   const showPopout = visible && shouldShow && (dataLoaded || isLoading);

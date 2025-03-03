@@ -8,7 +8,6 @@ import { mediaItemToId } from "@/backend/metadata/tmdb";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
-import { usePreferencesStore } from "@/stores/preferences";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { MediaBookmarkButton } from "./MediaBookmark";
@@ -403,8 +402,6 @@ export function MediaCard(props: MediaCardProps) {
   const [isHoveringInfo, setIsHoveringInfo] = useState(false);
   const [isMediumScreen, setIsMediumScreen] = useState(false);
 
-  const enablePopDetails = usePreferencesStore((s) => s.enablePopDetails);
-
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMediumScreen(window.innerWidth >= 768); // md breakpoint
@@ -528,12 +525,10 @@ export function MediaCard(props: MediaCardProps) {
         </div>
       )}
 
-      {enablePopDetails && (
-        <InfoPopout
-          media={mediaWithHoverHandlers}
-          visible={shouldShowHoverInfo}
-        />
-      )}
+      <InfoPopout
+        media={mediaWithHoverHandlers}
+        visible={shouldShowHoverInfo}
+      />
     </div>
   );
 }
