@@ -87,8 +87,6 @@ function MediaCardContent({
 
   const [hasCopiedID, setHasCopiedID] = useState(false);
 
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
   if (closable) {
     setOverlayVisible(false);
   }
@@ -133,22 +131,14 @@ function MediaCardContent({
     setTimeout(() => setHasCopiedID(false), 2000);
   };
 
-  // Modified close button handler
   const handleCloseOverlay = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     e.preventDefault();
     e.stopPropagation();
 
-    setIsTransitioning(true);
-
-    // Small delay to ensure transition state is applied before changing overlay visibility
     setTimeout(() => {
       setOverlayVisible(false);
-      // Give time for any animations to complete before removing transition state
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300); // Match this with your animation duration
     }, 10);
   };
 
@@ -178,7 +168,7 @@ function MediaCardContent({
         <Flare.Child
           className={`pointer-events-auto relative mb-2 p-[0.4em] transition-transform duration-300 ${
             canLink && !overlayVisible
-              ? isHoveringCard || isTransitioning
+              ? isHoveringCard
                 ? "scale-95"
                 : ""
               : overlayVisible
