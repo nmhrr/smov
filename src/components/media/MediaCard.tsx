@@ -425,7 +425,7 @@ export function MediaCard(props: MediaCardProps) {
       clearTimeout(hoverTimer.current);
     }
 
-    if (isMediumScreen) {
+    if (isMediumScreen && !overlayVisible) {
       hoverTimer.current = setTimeout(() => {
         setShowHoverInfo(true);
       }, 300); // 0.3 second delay
@@ -438,8 +438,7 @@ export function MediaCard(props: MediaCardProps) {
       clearTimeout(hoverTimer.current);
     }
 
-    // Only hide if not hovering info card and overlay is not visible
-    if (!isHoveringInfo && !overlayVisible) {
+    if (!isHoveringInfo) {
       setShowHoverInfo(false);
     }
 
@@ -450,7 +449,7 @@ export function MediaCard(props: MediaCardProps) {
   };
 
   const shouldShowHoverInfo =
-    (showHoverInfo || overlayVisible) && isMediumScreen;
+    showHoverInfo && !overlayVisible && isMediumScreen;
 
   const isReleased = useCallback(
     () => checkReleased(props.media),
