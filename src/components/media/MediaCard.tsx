@@ -1,3 +1,5 @@
+// I'm sorry this is so confusing 😭
+
 import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -129,17 +131,6 @@ function MediaCardContent({
     copyToClipboard(media.id);
     setHasCopiedID(true);
     setTimeout(() => setHasCopiedID(false), 2000);
-  };
-
-  const handleCloseOverlay = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setTimeout(() => {
-      setOverlayVisible(false);
-    }, 10);
   };
 
   return (
@@ -324,7 +315,7 @@ function MediaCardContent({
                     "bg-buttons-purple bg-opacity-15 hover:bg-buttons-purpleHover hover:bg-opacity-25 backdrop-blur-md", // Background
                     "border-2 border-gray-400 border-opacity-20", // Border
                   )}
-                  onClick={handleCloseOverlay}
+                  onClick={() => setOverlayVisible(false)}
                 >
                   Close
                 </Button>
@@ -390,15 +381,13 @@ export function MediaCard(props: MediaCardProps) {
   const hoverTimer = useRef<NodeJS.Timeout>();
   const [isHoveringCard, setIsHoveringCard] = useState(false);
   const [isHoveringInfo, setIsHoveringInfo] = useState(false);
-  const [isMediumScreen, setIsMediumScreen] = useState(false);
+  const [isBigScreen, setIsBigScreen] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMediumScreen(window.innerWidth >= 768); // md breakpoint
+      setIsBigScreen(window.innerWidth >= 768); // md breakpoint
     };
-
     checkScreenSize();
-
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
@@ -415,10 +404,10 @@ export function MediaCard(props: MediaCardProps) {
       clearTimeout(hoverTimer.current);
     }
 
-    if (isMediumScreen && !overlayVisible) {
+    if (isBigScreen && !overlayVisible) {
       hoverTimer.current = setTimeout(() => {
         setShowHoverInfo(true);
-      }, 300); // 0.3 second delay
+      }, 200); // 0.2 second delay
     }
   };
 
@@ -434,12 +423,11 @@ export function MediaCard(props: MediaCardProps) {
 
     const id = setTimeout(() => {
       setOverlayVisible(false);
-    }, 2000);
+    }, 2000); // 2 seconds
     setTimeoutId(id);
   };
 
-  const shouldShowHoverInfo =
-    showHoverInfo && !overlayVisible && isMediumScreen;
+  const shouldShowHoverInfo = showHoverInfo && !overlayVisible && isBigScreen;
 
   const isReleased = useCallback(
     () => checkReleased(props.media),
@@ -461,7 +449,7 @@ export function MediaCard(props: MediaCardProps) {
     }
   }
 
-  const mediaWithHoverHandlers = {
+  const hoverMedia = {
     ...props.media,
     onHoverInfoEnter: () => setIsHoveringInfo(true),
     onHoverInfoLeave: () => {
@@ -514,10 +502,7 @@ export function MediaCard(props: MediaCardProps) {
         </div>
       )}
 
-      <InfoPopout
-        media={mediaWithHoverHandlers}
-        visible={shouldShowHoverInfo}
-      />
+      <InfoPopout media={hoverMedia} visible={shouldShowHoverInfo} />
     </div>
   );
 }
