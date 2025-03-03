@@ -162,6 +162,14 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
   };
 
+  const formatVoteCount = (count?: number) => {
+    if (!count) return "0";
+    if (count >= 1000) {
+      return `${Math.floor(count / 1000)}K+`;
+    }
+    return count.toString();
+  };
+
   return (
     <div
       className={classNames(
@@ -229,7 +237,7 @@ export function InfoPopout({ media, visible }: InfoPopoutProps) {
                         <span className="font-medium">Rating:</span>{" "}
                         {additionalDetails.voteAverage.toFixed(1)}/10
                         <span className="text-white/60 text-[10px]">
-                          ({additionalDetails.voteCount})
+                          ({formatVoteCount(additionalDetails.voteCount)})
                         </span>
                       </div>
                     )}
