@@ -133,10 +133,7 @@
       "noResults": "We couldn't find anything :(",
       "placeholder": {
         "default": "What do you want to watch?",
-        "extra": [
-          "What do you want to watch?",
-          "Feeling nostalgic?123456789"
-        ]
+        "extra": ["What do you want to watch?"]
       },
       "empty": {
         "default": "Welcome, find media to watch here!",
