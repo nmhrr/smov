@@ -6,7 +6,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCopyToClipboard } from "react-use";
 
+import { getMetaFromId } from "@/backend/metadata/getmeta";
 import { mediaItemToId } from "@/backend/metadata/tmdb";
+import { MWMediaType, MWSeasonMeta } from "@/backend/metadata/types/mw";
 import { DotList } from "@/components/text/DotList";
 import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
@@ -18,6 +20,187 @@ import { Button } from "../buttons/Button";
 import { IconPatch } from "../buttons/IconPatch";
 import { Icon, Icons } from "../Icon";
 import { InfoPopout } from "./InfoPopout";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "../overlays/DropdownMenu";
+
+interface EpisodeSelectorProps {
+  closable?: boolean;
+  series: {
+    season?: number;
+    episode: number;
+    episodeId: string;
+    seasonId: string;
+  };
+  tmdbId: string | number;
+}
+
+interface EpisodeSelectorProps {
+  closable?: boolean;
+  series: {
+    season?: number;
+    episode: number;
+    episodeId: string;
+    seasonId: string;
+  };
+  tmdbId: string | number;
+}
+
+function EpisodeSelector({ closable, series, tmdbId }: EpisodeSelectorProps) {
+  const { t } = useTranslation();
+  const [currentSeasonId, setCurrentSeasonId] = useState(series.seasonId);
+  const [show, setShow] = useState("");
+  const [currentSeason, setCurrentSeason] = useState(series.season || 1);
+  const [seasons, setSeasons] = useState<MWSeasonMeta[]>([]);
+  const [episodes, setEpisodes] = useState<any[]>([]);
+  const [isLoadingEpisodes, setIsLoadingEpisodes] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    async function fetchSeasons() {
+      try {
+        const data = await getMetaFromId(MWMediaType.SERIES, tmdbId.toString());
+        if (data?.meta?.type === MWMediaType.SERIES && data.meta.seasons) {
+          setSeasons(data.meta.seasons);
+          setShow(data.meta.title);
+        }
+      } catch (error) {
+        console.error("Failed to fetch seasons", error);
+      }
+    }
+
+    fetchSeasons();
+  }, [tmdbId]);
+
+  useEffect(() => {
+    async function fetchEpisodes() {
+      setIsLoadingEpisodes(true);
+      try {
+        const data = await getMetaFromId(
+          MWMediaType.SERIES,
+          tmdbId.toString(),
+          currentSeasonId,
+        );
+        if (
+          data?.meta?.type === MWMediaType.SERIES &&
+          data.meta.seasonData?.episodes
+        ) {
+          setEpisodes(data.meta.seasonData.episodes);
+        }
+      } catch (error) {
+        console.error("error", error);
+      } finally {
+        setIsLoadingEpisodes(false);
+      }
+    }
+
+    if (currentSeasonId) {
+      fetchEpisodes();
+    }
+  }, [tmdbId, currentSeasonId]);
+
+  const handleSeasonChange = (seasonId: string, seasonNumber: number) => {
+    setCurrentSeasonId(seasonId);
+    setCurrentSeason(seasonNumber);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          ref={buttonRef}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          className="absolute right-2 top-2 rounded-lg bg-mediaCard-badge px-2 py-1 transition-colors flex items-center z-10"
+        >
+          <p
+            className={`text-center text-xs font-bold text-mediaCard-badgeText transition-colors ${closable ? "" : "group-hover:text-white"}`}
+          >
+            {t("media.episodeDisplay", {
+              season: series.season,
+              episode: series.episode,
+            })}
+          </p>
+          <Icon className="ml-1" icon={Icons.CHEVRON_DOWN} />
+        </button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        className="w-56 rounded-xl overflow-hidden shadow-lg focus:outline-none"
+        align="end"
+        onClick={(e: { stopPropagation: () => any }) => e.stopPropagation()}
+      >
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger className="sticky top-0 z-10 bg-mediaCard-badge bg-opacity-30 text-type-main rounded-t-xl">
+            <span className="font-medium">Season {currentSeason}</span>
+          </DropdownMenuSubTrigger>
+
+          <DropdownMenuSubContent className="max-h-60 overflow-y-auto rounded-xl shadow-lg focus:outline-none">
+            {seasons.map((season) => (
+              <DropdownMenuItem
+                key={season.id}
+                className={`px-4 py-2 text-sm hover:bg-mediaCard-hoverBackground cursor-pointer ${
+                  season.id === currentSeasonId
+                    ? "bg-mediaCard-badge bg-opacity-50"
+                    : ""
+                }`}
+                onClick={(e: {
+                  preventDefault: () => void;
+                  stopPropagation: () => void;
+                }) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSeasonChange(season.id, season.number);
+                }}
+              >
+                {season.title}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+
+        {/* Episode list */}
+        <div className="py-1 h-60 overflow-y-auto">
+          {isLoadingEpisodes ? (
+            <div className="px-4 py-2 text-sm text-type-secondary">
+              Loading episodes...
+            </div>
+          ) : (
+            <>
+              {episodes.map((episode) => (
+                <DropdownMenuItem
+                  key={episode.id}
+                  asChild
+                  className="px-1 hover:bg-mediaCard-hoverBackground"
+                >
+                  <Link
+                    to={`/media/tmdb-tv-${tmdbId}-${show.replace(/\s+/g, "-")}/${currentSeasonId}/${episode.id}`}
+                    className="flex items-center px-4 py-2 text-sm text-type-main hover:bg-mediaCard-hoverBackground rounded-lg"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="p-0.5 px-2 mr-2 rounded-md inline bg-video-context-hoverColor bg-opacity-50">
+                      {episode.number}
+                    </span>
+                    <span className="line-clamp-1">{episode.title}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </>
+          )}
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export interface MediaCardProps {
   media: MediaItem;
@@ -178,6 +361,14 @@ function MediaCardContent({
           >
             {!overlayVisible ? (
               <div>
+                {series ? (
+                  <EpisodeSelector
+                    tmdbId={media.id}
+                    closable={!!closable}
+                    series={series}
+                  />
+                ) : null}
+
                 {series ? (
                   <div
                     className={[
