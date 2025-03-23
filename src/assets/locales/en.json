@@ -199,6 +199,7 @@
     }
   },
   "migration": {
+    "loginRequired": "You must be logged in to migrate your data! Please go back and login to continue.",
     "start": {
       "title": "Migrate your data",
       "explainer": "If you wish to migrate or backup your data, you can do so using the options below. This will allow you to keep your data when you switch backend servers.",
@@ -224,7 +225,6 @@
       "backendLabel": "Destination Backend URL",
       "recaptchaLabel": "ReCaptcha Key (Optional)",
       "toggleLable": "Needs ReCaptcha?",
-      "loginRequired": "You must be logged in to migrate your data! Please go back and login to continue.",
       "status": {
         "error": "Failed to migrate your data. 😿",
         "success": "Your data has been migrated successfully! 🎉"
@@ -235,7 +235,27 @@
         "home": "Go home",
         "login": "Continue to login"
       }
-    }
+    },
+    "download": {
+      "title": "Download data",
+      "description": "This will download your data to your device. You can then upload it to the new server or just keep it for safekeeping.",
+      "items": {
+        "description": "This will download your data including:",
+        "profile": "Profile information",
+        "bookmarks": "Bookmarked media",
+        "progress": "Watch progress"
+      },
+      "status": {
+        "error": "Failed to download your data. 😿",
+        "success": "Your data has been downloaded successfully! 🎉"
+      },
+      "button": {
+        "download": "Download data",
+        "home": "Go home",
+        "login": "Continue to login"
+      }
+    },
+    "back": "Go back"
   },
   "navigation": {
     "banner": {
@@ -574,6 +594,11 @@
           "confirmTitle": "Are you sure?",
           "text": "This action is irreversible. All data will be deleted and nothing can be recovered.",
           "title": "Delete account"
+        },
+        "migration": {
+          "title": "Account migration",
+          "text": "Migrate your account to a new server or download your data.",
+          "button": "Migrate account"
         },
         "title": "Actions",
         "logoutAllDevices": {
