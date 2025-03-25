@@ -1,13 +1,13 @@
 {
   "about": {
-    "description": "P-Stream is a fork of movie-web that is ensured to stay up even after the shutdown of movie-web.app. P-Stream runs on a private, self-hosted VPS. I run this site at a loss; there are no ads due to my beliefs in free media.",
+    "description": "CrackerMovies is an app that lets you watch movies and TV shows for free whenever you want. Like a real nigga should. And that's on twin.",
     "faqTitle": "Common questions",
     "q1": {
-      "body": "P-Stream does not host any content. When you click on something to watch, the internet is searched for the selected media (On the loading screen and in the 'video sources' tab you can see which source you're using). Media never gets uploaded by P-Stream, everything is through this searching mechanism.",
+      "body": "CrackerMovies does not host any content. When you click on something to watch, the internet is searched for the selected media (On the loading screen and in the 'video sources' tab you can see which source you're using). Media never gets uploaded by CrackerMovies, everything is through this searching mechanism.",
       "title": "Where does the content come from?"
     },
     "q2": {
-      "body": "It's not possible to request a show or movie, P-Stream does not manage any content. All content is viewed through sources on the internet.",
+      "body": "It's not possible to request a show or movie, CrackerMovies does not manage any content. All content is viewed through sources on the internet.",
       "title": "Where can I request a show or movie?"
     },
     "q3": {
@@ -15,21 +15,21 @@
       "title": "The search results display the show or movie, why can't I play it?"
     },
     "q4": {
-      "body": "All data is synced to the community backend, anyone is free to use this as well.",
-      "title": "What about my data and stuff?"
+      "body": "We have a team of hard working indians that manage CrackerStreams and CrackerMovies. In their free time they like to play cricket and have mini poop wars. Sometimes one of them brings in their food and they all get super excited because they put extra shit in their bowl of horse piss. They do not like to take showers",
+      "title": "Who is behind CrackerMovies?"
     },
     "q5": {
-      "body": "P-Stream has a Discord server that can be found at the header of this page!",
-      "title": "How can I find out more?"
+      "body": "Email the head cracker at admin@crackerstreams.online for any more questions",
+      "title": "None of this fuck shit answered my question"
     },
-    "title": "About P-Stream (^▽^)"
+    "title": "About CrackerMovies"
   },
   "actions": {
     "copied": "Copied",
     "copy": "Copy"
   },
   "auth": {
-    "createAccount": "Don't have an account yet 😬 <0>Create an account.</0>",
+    "createAccount": "Don't have an account yet? <0>Create an account.</0>",
     "deviceNameLabel": "Device name",
     "deviceNamePlaceholder": "Personal phone",
     "generate": {
@@ -46,13 +46,13 @@
       "passphrasePlaceholder": "Passphrase",
       "submit": "Login",
       "title": "Login to your account",
-      "validationError": "Incorrect or incomplete passphrase /ᐠ. .ᐟ\\"
+      "validationError": "Incorrect or incomplete passphrase"
     },
     "register": {
       "information": {
         "color1": "Profile color one",
         "color2": "Profile color two",
-        "header": "Enter a name for your device then pick colors and a user icon of your choosing!",
+        "header": "Enter a name for your device then pick colors and a user icon for your account",
         "icon": "User icon",
         "next": "Next",
         "title": "Account information"
@@ -64,16 +64,16 @@
         "title": "Failed to reach server"
       },
       "noHostTitle": "Server not configured!",
-      "noHost": "The server has not been configured, therefore you cannot create an account",
+      "noHost": "The server has not been configured so you cannot create an account",
       "host": "You are connecting to <0>{{hostname}}</0> - please confirm you trust it before making an account...",
       "no": "Go back",
       "title": "Do you trust this server?",
-      "yes": "I trust this server 🤞"
+      "yes": "I trust this server"
     },
     "verify": {
       "description": "Please enter your passphrase from earlier to confirm you have saved it and to create your account",
       "invalidData": "Data is not valid",
-      "noMatch": "Passphrase doesn't match 😭",
+      "noMatch": "Passphrase doesn't match",
       "passphraseLabel": "Your 12-word passphrase",
       "recaptchaFailed": "ReCaptcha validation failed",
       "register": "Create account",
@@ -81,16 +81,16 @@
     }
   },
   "errors": {
-    "badge": "It broke 💀",
+    "badge": "Shit hit the fan",
     "details": "Error details",
     "reloadPage": "Reload the page",
     "showError": "Show error details",
-    "title": "We encountered an error!"
+    "title": "Something went wrong"
   },
   "footer": {
     "legal": {
-      "disclaimer": "Disclaimer ◝(ᵔᵕᵔ)◜",
-      "disclaimerText": "Please note: P-Stream does not host any files itself but instead only display's content from 3rd party providers. Legal issues should be taken up with them."
+      "disclaimer": "Disclaimer",
+      "disclaimerText": "CrackerMovies does not host any files, it only links to third-party services. Legal issues should be addressed with the file hosts and providers. CrackerMovies is not responsible for any media files shown by video providers. We also do not condone watching both CrackerMovies and CrackerStreams during school hours."
     },
     "links": {
       "discord": "Discord",
@@ -98,10 +98,10 @@
       "github": "GitHub",
       "twitter": "Twitter"
     },
-    "tagline": "Watch your favorite shows and movies for free with no ads ever! (っ'ヮ'c)"
+    "tagline": "Watch your favorite shows and movies for free with no ads ever. The way a real nigga should. And that's on twin."
   },
   "global": {
-    "name": "P-Stream",
+    "name": "CrackerMovies",
     "pages": {
       "about": "About",
       "dmca": "DMCA",
@@ -109,11 +109,10 @@
       "support": "Support",
       "login": "Login",
       "onboarding": "Setup",
-      "pagetitle": "{{title}} - P-Stream",
+      "pagetitle": "{{title}} - CrackerMovies",
       "register": "Register",
       "settings": "Settings",
-      "migration": "Migrate Account",
-      "jip": "Jip"
+      "jip": "Ishaat Patel"
     }
   },
   "home": {
@@ -128,31 +127,14 @@
     },
     "search": {
       "allResults": "That's all we have...",
-      "failed": "Failed to find media, try again!",
+      "failed": "Failed to find media... try again",
       "loading": "Loading...",
-      "noResults": "We couldn't find anything :(",
+      "noResults": "We couldn't find anything",
       "placeholder": {
-        "default": "What do you want to watch?",
-        "extra": [
-          "What are you in the mood for?",
-          "Should we delete your browser history?",
-          "What do you want to stream?",
-          "P-Stream is the best site ever!",
-          "What's on your watchlist today?",
-          "How was your day?",
-          "My bad the site never works...",
-          "Isn't P-Stream just the best?",
-          ">ᴗ<"
-        ]
+        "default": "What do you want to watch?"
       },
       "empty": {
-        "default": "Welcome, find media to watch here!",
-        "extra": [
-          "There's nothing here :(",
-          "So empty...",
-          "Such emptiness.",
-          "Hi new user :3"
-        ]
+        "default": "Welcome to CrackerMovies, find movies and shows to watch here."
       },
       "sectionTitle": "Search results",
       "discoverMore": "Discover more",
@@ -160,33 +142,19 @@
     },
     "titles": {
       "day": {
-        "default": "What would you like to watch this afternoon?",
-        "extra": ["Have you seen Blazing Saddles?"],
-        "extra": ["Welcome to P-Stream!"],
-        "extra": [" /ᐠ>ヮ<ᐟ\\ฅ"],
-        "extra": ["Viva la P-Stream!"]
+        "default": "What would you like to watch this afternoon?"
       },
       "morning": {
-        "default": "What would you like to watch this morning?",
-        "extra": ["Can't go wrong with Friends"],
-        "extra": ["I hear The Expanse is popular"],
-        "extra": ["\"૮₍  ˶•⤙•˶ ₎ა"],
-        "extra": ["Viva la P-Stream!"]
+        "default": "What would you like to watch this morning?"
       },
       "night": {
-        "default": "What would you like to watch tonight?",
-        "extra": ["Rick & Morty is great with friends!"],
-        "extra": ["Go smoke and watch The Simpsons!"],
-        "extra": ["(づ ᴗ _ᴗ)づ♡"],
-        "extra": ["Viva la P-Stream!"]
+        "default": "What would you like to watch tonight?"
       },
       "420": {
-        "default": "What would you like to watch this 4/20?",
-        "extra": ["Happy 4/20 🥳!"]
+        "default": "Wait... i think im faded...."
       },
       "69": {
-        "default": "Up for something spicy?",
-        "extra": ["Happy 69 day 😘!"]
+        "default": "Cardo my evil twin... carti my evil twin..."
       }
     }
   },
@@ -198,53 +166,14 @@
       "show": "Show"
     }
   },
-  "migration": {
-    "start": {
-      "title": "Migrate your data",
-      "explainer": "If you wish to migrate or backup your data, you can do so using the options below. This will allow you to keep your data when you switch backend servers.",
-      "options": {
-        "or": "or",
-        "direct": {
-          "description": "This will directly migrate your data to the new server. This is the fastest option. <br /><br />This option allows you to keep your passphrase the same!",
-          "title": "Direct migration",
-          "quality": "Easiest and fastest",
-          "action": "Transfer data"
-        },
-        "download": {
-          "description": "This will download your data to your device. You can then upload it to the new server or just keep it for safekeeping.",
-          "title": "Download data",
-          "quality": "More technical",
-          "action": "Download data"
-        }
-      }
-    },
-    "direct": {
-      "title": "Direct migration",
-      "description": "Enter the destination backend URL to migrate your current account data to a new backend. This keeps your passphrase the same!",
-      "backendLabel": "Destination Backend URL",
-      "recaptchaLabel": "ReCaptcha Key (Optional)",
-      "toggleLable": "Needs ReCaptcha?",
-      "loginRequired": "You must be logged in to migrate your data! Please go back and login to continue.",
-      "status": {
-        "error": "Failed to migrate your data. 😿",
-        "success": "Your data has been migrated successfully! 🎉"
-      },
-      "button": {
-        "migrate": "Migrate",
-        "processing": "Processing...",
-        "home": "Go home",
-        "login": "Continue to login"
-      }
-    }
-  },
   "navigation": {
     "banner": {
-      "offline": "Check your internet connection, silly goose! 🦢"
+      "offline": "Looks like you're offline bud go check your internet connection"
     },
     "menu": {
       "about": "About us",
       "logout": "Log out",
-      "register": "Sync to Cloud",
+      "register": "Sync to the cloud",
       "settings": "Settings",
       "support": "Support",
       "discover": "Discover"
@@ -254,25 +183,26 @@
     "badge": "Not found",
     "goHome": "Back to home",
     "reloadButton": "Try again",
-    "message": "We looked everywhere: under the bins, in the closet, behind the proxy, but ultimately couldn't find the page you are looking for. (ಥ﹏ಥ)",
+    "message": "We looked everywhere but we couldn't find the page you're looking for.",
     "title": "Couldn't find that page"
   },
   "downtimeNotice": {
     "badge": "Issues",
     "goHome": "Go home",
-    "message": "P-Stream is experiencing issues with some providers again, if you cant find or play a show please change the source. Expect this error to persist throughout the below times.",
+    "message": "CrackerMovies is experiencing issues with some providers again, if you cant find or play a show please change the source. Expect this error to persist throughout the below times.",
+    "timeFrame": "<bold>March 31th 11:00 PM - 5:00 AM EST</bold>",
     "title": "Provider issues"
   },
   "onboarding": {
     "defaultConfirm": {
       "cancel": "Cancel",
       "confirm": "Use default setup",
-      "description": "The default setup does not have the best streams. You'll be missing out on the best sources!",
+      "description": "Click Use default setup to use the setup we made for you. This works best for most users.",
       "title": "Are you sure?"
     },
     "extension": {
       "back": "Go back",
-      "explainer": "Using the browser extension, you can get the best streams we have to offer. With just a simple install. 👌",
+      "explainer": "Using the browser extension, you can get the best streams we have to offer with just a simple install.",
       "explainerIos": "Unfortunately, the browser extension is not supported on iOS, Press <bold>Go back</bold> to choose another option.",
       "extensionHelp": "If you've installed the extension but it's not detected, <bold>open the extension through your browsers extension menu</bold> and follow the steps on screen.",
       "linkChrome": "Install Chrome extension",
@@ -280,7 +210,7 @@
       "notDetecting": "Installed on Chrome, but the site isn't detecting it? Try reloading the page!",
       "notDetectingAction": "Reload page",
       "status": {
-        "disallowed": "Extension is not enabled for this page (,,>﹏<,,)",
+        "disallowed": "Extension is not enabled for this page",
         "disallowedAction": "Enable extension",
         "failed": "Failed to request status",
         "loading": "Waiting for you to install the extension",
@@ -292,11 +222,11 @@
     },
     "proxy": {
       "back": "Go back",
-      "explainer": "With the proxy method, you can get great quality streams by making a self-service proxy.",
+      "explainer": "With the proxy method, you can get better streams by making a self-service proxy.",
       "input": {
         "errorConnection": "Could not connect to proxy",
         "errorInvalidUrl": "Not a valid URL",
-        "errorNotProxy": "Expected a proxy but got a website",
+        "errorNotProxy": "Expected a proxy but got a website??",
         "label": "Proxy URL",
         "placeholder": "https://"
       },
@@ -307,14 +237,13 @@
     "start": {
       "explainer": "To get the best streams possible, you will need to choose which streaming method you want to use.",
       "options": {
-        "or": "or",
         "default": {
-          "text": "I don't want good quality streams, use the default setup."
+          "text": "Use the default setup (no setup needed)"
         },
         "extension": {
           "action": "Install extension",
           "description": "Install browser extension and gain access to the best sources, but remember to enable it for this site.",
-          "quality": "Best quality + More Sources",
+          "quality": "Best quality",
           "title": "Browser extension"
         },
         "proxy": {
@@ -324,7 +253,7 @@
           "title": "Custom proxy"
         }
       },
-      "title": "Let's get you setup with P-Stream 🥳"
+      "title": "Let's get CrackerMovies set up for u gang"
     }
   },
   "overlays": {
@@ -340,11 +269,11 @@
     },
     "menus": {
       "downloads": {
-        "disclaimer": "Downloads are taken directly from the provider. P-Stream does not have control over how the downloads are provided.",
+        "disclaimer": "Downloads are made directly from the provider. CrackerMovies has no control over how downloads are provided.",
         "copyHlsPlaylist": "Copy HLS playlist link",
         "downloadSubtitle": "Download current subtitle",
         "downloadVideo": "Download video",
-        "hlsDisclaimer": "Downloads are taken directly from the provider. P-Stream does not have control over how the downloads are provided.<br /><br />Please note you are downloading an HLS playlist, <bold>it is not recommended to download if you are not familiar with advanced streaming formats</bold>. Try different sources for different formats.",
+        "hlsDisclaimer": "Downloads are made directly from the provider. CrackerMovies has no control over how downloads are provided.<br /><br />Please note that you are downloading an HLS playlist, <bold>this is meant for users familiar with advanced streaming formats</bold>. Try a different source with a different format.",
         "onAndroid": {
           "1": "To download on Android, click the download button then, on the new page, <bold>tap and hold</bold> on the video, then select <bold>save</bold>.",
           "shortTitle": "Download / Android",
@@ -364,7 +293,7 @@
       },
       "episodes": {
         "button": "Episodes",
-        "emptyState": "There are no episodes in this season, check back later (sorry :3)...",
+        "emptyState": "There are no episodes in this season.",
         "episodeBadge": "E{{episode}}",
         "loadingError": "Error loading season",
         "loadingList": "Loading...",
@@ -379,7 +308,7 @@
       "quality": {
         "automaticLabel": "Automatic quality",
         "hint": "You can try <0>switching source</0> to get different quality options.",
-        "iosNoQuality": "Due to Apple-defined (common IOS L) limitations, quality selection is not available on iOS for this source. You can try <0>switching to another source</0> to get different quality options.",
+        "iosNoQuality": "Due to limitations set by Tim Cook and his jewish ass niggas at Apple, quality selection is not available on iOS for this source. You can try <0>switching to another source</0> to get different quality options.",
         "title": "Quality"
       },
       "settings": {
@@ -403,12 +332,11 @@
           "title": "No embeds found"
         },
         "noStream": {
-          "text": "This source has no streams for this movie or show. /ᐠ - ˕ -マ Ⳋ",
-          "title": "No stream :("
+          "text": "This source has no streams for this movie or show.",
+          "title": "No streams found"
         },
         "title": "Sources",
-        "unknownOption": "Unknown",
-        "editOrder": "Edit order"
+        "unknownOption": "Unknown"
       },
       "subtitles": {
         "customChoice": "Drop or upload file",
@@ -423,7 +351,7 @@
         },
         "title": "Subtitles",
         "unknownLanguage": "Unknown",
-        "dropSubtitleFile": "Drop subtitle file here! >_<",
+        "dropSubtitleFile": "Put ur subtitle file here!",
         "scrapeButton": "Scrape subtitles",
         "empty": "There are no provided subtitles for this.",
         "notFound": "None of the available options match your query"
@@ -436,13 +364,13 @@
       },
       "dmca": {
         "badge": "Removed",
-        "text": "This media is no longer available due to a takedown notice or copyright claim. 😨",
+        "text": "This media is no longer available due to a takedown notice or copyright claim by some jewish ass nigga probably lol sorry about taht gang",
         "title": "Media has been removed"
       },
       "extensionPermission": {
         "badge": "Permission Missing",
         "button": "Use extension",
-        "text": "You have the browser extension, but we need your permission to get started using the extension. (¬_¬)",
+        "text": "You have the browser extension, but we need your permission to get started using the extension.",
         "title": "Configure the extension"
       },
       "failed": {
@@ -454,7 +382,7 @@
       "notFound": {
         "badge": "Not found",
         "homeButton": "Back to home",
-        "text": "We couldn't find the media you requested. Either it's been removed or you tampered with the URL (naughty, naughty).",
+        "text": "We couldn't find the media you requested.",
         "title": "Couldn't find that media."
       }
     },
@@ -466,20 +394,20 @@
     "playbackError": {
       "badge": "Playback error",
       "errors": {
-        "errorAborted": "The fetching of the media was aborted by the user's request.",
-        "errorDecode": "Despite having previously been determined to be usable, an error occurred while trying to decode the media resource, resulting in an error.",
-        "errorGenericMedia": "Unknown media error occurred.",
-        "errorNetwork": "Some kind of network error occurred which prevented the media from being successfully fetched, despite having previously been available.",
-        "errorNotSupported": "The media or media provider object is not supported."
+        "errorAborted": "The fetching of the media was aborted by the user's request. Fuck u do that for my nigga",
+        "errorDecode": "Despite having previously been determined to be usable, an error occurred while trying to decode the media resource, resulting in an error. Try again mah cracka",
+        "errorGenericMedia": "Unknown media error occurred. Try again mah cracka",
+        "errorNetwork": "Some kind of network error occurred which prevented the media from being successfully fetched, despite having previously been available. Try again mah cracka",
+        "errorNotSupported": "The media or media provider object is not supported my nigga."
       },
       "homeButton": "Go home",
-      "text": "There was an error trying to play the media 😖. Please try again or try a different source!",
+      "text": "There was an error trying to play the media. Please try again.",
       "title": "Failed to play video!"
     },
     "scraping": {
       "items": {
         "failure": "Error occurred",
-        "notFound": "Doesn't have the video (╥﹏╥)",
+        "notFound": "Doesn't have the video",
         "pending": "Checking for videos..."
       },
       "notFound": {
@@ -487,15 +415,15 @@
         "detailsButton": "Show details",
         "homeButton": "Go home",
         "discoverButton": "Discover more",
-        "text": "We have searched through our providers and cannot find the media you are looking for! We do not host the media and have no control over what is available. Please click 'Show details' below for more details.",
-        "title": "We couldn't find that"
+        "text": "We have searched through our providers and cannot find the media you're looking for. Sorry gang",
+        "title": "Not found"
       },
       "extensionFailure": {
         "badge": "Extension disabled",
         "homeButton": "Go home",
         "enableExtension": "Enable extension",
         "title": "Please enable the extension",
-        "text": "You've installed the P-Stream extension. To start using it, you need to enable the extension for this site."
+        "text": "You've installed the CrackerMovies extension. To start using it, you need to enable the extension for this site."
       }
     },
     "time": {
@@ -505,38 +433,39 @@
       "shortRemaining": "-{{timeLeft}}"
     },
     "turnstile": {
-      "description": "Please prove your humanity by completing the quick challenge, this is to keep P-Stream safe.",
-      "error": "Failed to verify your humanity - stream failed to load. Clear your cache and try again, or switch to a different source (tap the gear).",
-      "title": "Are You a Robot 🤖?",
-      "verifyingHumanity": "Verifying your humanity... (^▽^)👍"
+      "description": "Please confirm you're a Real Ass Nigga by completing the Captcha on the right. This is to make sure that crackermovies is only used by real niggas",
+      "error": "Failed to verify your street cred. Please try again.",
+      "title": "Are you a real OG ass nigga?",
+      "verifyingHumanity": "Verifying real nigga status... please hold "
     }
   },
   "support": {
     "title": "Support",
-    "text": "P-Stream is designed to be as user-friendly as possible. However, people still have questions and issues. This page is here to help resolve these shortcomings",
+    "text": "CrackerMovies is designed to be as user-friendly as possible. However, people still have questions and issues. This page is here to help resolve these shortcomings",
     "q1": {
-      "body": "Well, you can join the official <0>P-Stream discord</0> and ask questions there or you can email the one provided at the bottom of this page.",
+      "body": "Figure it out mah cracka or email head cracker at admin@crackerstreams.online",
       "title": "Where can I get help?"
     },
     "q2": {
-      "body": "We have a <0>GitHub</0> where you can create a detailed issue in our repository. Additionally, if you wish, you can create a pull request to fix the issue yourself.",
+      "body": "Email admin@crackerstreams.online to report a bug or issue.",
       "title": "How can I report a bug or issue?"
     }
   },
   "jip": {
-    "title": "Jip",
-    "text": "P-Stream didn't fall out of a coconut tree, it was made mostly by a single person (a very epic one at that).",
+    "title": "Ishaat Patel",
+    "text": "CrackerMovies was made by Ishaat Patel from india saar",
     "q1": {
-      "body": "Well, you can join the official <0>P-Stream discord</0> and ask questions there or you can email the one provided at the bottom of this page.",
+      "body": "Figure it out mah cracka or email head cracker at admin@crackerstreams.online",
       "title": "Where can I get help?"
     },
     "q2": {
-      "body": "We have a <0>GitHub</0> where you can create a detailed issue in our repository. Additionally, if you wish, you can create a pull request to fix the issue yourself.",
+      "body": "Email admin@crackerstreams.online to report a bug or issue.",
       "title": "How can I report a bug or issue?"
     }
   },
   "screens": {
     "dmca": {
+      "text": "Welcome to CrackerMovies's DMCA contact page! We respect intellectual property rights and want to address any copyright concerns quickly. If you believe your copyrighted work has been used inappropriately on our platform, please send a detailed DMCA notice to the email below. Please include a description of the copyrighted material, your contact information, and a statement of good faith belief. We are committed to resolving these issues promptly and thank you for your cooperation in keeping CrackerMovies a place that respects creativity and copyright.",
       "title": "DMCA"
     },
     "loadingApp": "Loading application",
@@ -549,7 +478,7 @@
       "textWithReset": "Failed to load your profile from your custom server, want to reset back to the default server?"
     },
     "migration": {
-      "failed": "Failed to migrate your data. 😿",
+      "failed": "Failed to migrate your data. Please try again.",
       "inProgress": "Please hold, we are migrating your data. This shouldn't take long..."
     }
   },
@@ -557,30 +486,25 @@
     "account": {
       "accountDetails": {
         "deviceNameLabel": "Device name",
-        "deviceNamePlaceholder": "Personal phone",
+        "deviceNamePlaceholder": "Device",
         "editProfile": "Edit",
         "logoutButton": "Log out"
       },
       "admin": {
         "title": "Admin panel",
-        "text": "Utilize tools made for testing P-Stream's condition.",
-        "button": "Check it out"
+        "text": "Utilize tools made for testing CrackerMovies's condition.",
+        "button": "OK"
       },
       "actions": {
         "delete": {
           "button": "Delete account",
           "confirmButton": "Delete account",
-          "confirmDescription": "Are you sure you want to delete your account? All your data will be lost! ૮₍˶Ó﹏Ò ⑅₎ა",
+          "confirmDescription": "Are you sure you want to delete your account? All your data will be lost...",
           "confirmTitle": "Are you sure?",
           "text": "This action is irreversible. All data will be deleted and nothing can be recovered.",
           "title": "Delete account"
         },
-        "title": "Actions",
-        "logoutAllDevices": {
-          "title": "End All Sessions",
-          "text": "This will sign you out from all devices linked to your account.",
-          "button": "Log Out of All Devices"
-        }
+        "title": "Actions"
       },
       "devices": {
         "deviceNameLabel": "Device name",
@@ -597,8 +521,8 @@
       },
       "register": {
         "cta": "Get started",
-        "text": "Share your watch progress between devices and keep them synced. ( ̧⸝⸝⍢⸝⸝)ෆ",
-        "title": "Sync to the Cloud"
+        "text": "Share your watch progress between devices and keep them synced.",
+        "title": "Sync to the cloud"
       },
       "title": "Account"
     },
@@ -610,36 +534,21 @@
         "gray": "Gray",
         "red": "Red",
         "teal": "Teal",
-        "classic": "Classic",
-        "green": "Green",
-        "mocha": "Mocha",
-        "pink": "Pink"
+        "blck": "BLCK"
       },
-      "title": "Appearance",
-      "options": {
-        "discover": "Discover section",
-        "discoverDescription": "Show the Discover section on the Homepage below your bookmarked media. Enabled by default.",
-        "discoverLabel": "Discover section",
-        "hover": "Details popup",
-        "hoverDescription": "Show a popup with details when hovering over a media item. Disabled by default. (Only available on desktop)",
-        "hoverLabel": "Details popup"
-      }
+      "title": "Appearance"
     },
     "connections": {
       "server": {
         "description": "If you would like to connect to a custom backend to store your data, enable this and provide the URL. <0>Instructions.</0>",
         "label": "Custom server",
-        "urlLabel": "Custom server URL",
-        "migration": {
-          "description": "<0>Migrate my data</0> to a new server. ",
-          "link": "Migrate my data"
-        }
+        "urlLabel": "Custom server URL"
       },
       "setup": {
         "doSetup": "Do setup",
         "errorStatus": {
           "description": "It seems that one or more items in this setup need your attention.",
-          "title": "Something needs your attention 😱"
+          "title": "Something needs your attention"
         },
         "itemError": "There is something wrong with this setting. Go through setup again to fix it. (ᴗ_ ᴗ。)",
         "items": {
@@ -669,20 +578,16 @@
     },
     "preferences": {
       "language": "Application language",
-      "languageDescription": "Language applied to the entire application, only English has silly stuff 🙁.",
+      "languageDescription": "Language applied to the entire application",
       "thumbnail": "Generate thumbnails",
       "thumbnailDescription": "Most of the time, videos don't have thumbnails. You can enable this setting to generate them on the fly but they can make your video slower.",
       "thumbnailLabel": "Generate thumbnails",
       "autoplay": "Autoplay",
       "autoplayDescription": "Automatically play the next episode in a series after reaching the end. Can be enabled by users with the browser extension, a custom proxy, or with the default setup if allowed by the host.",
       "autoplayLabel": "Autoplay",
-      "skipCredits": "Skip End Credits",
-      "skipCreditsDescription": "When enabled, automatically play the next episode at 99% completion to skip end credits. When disabled, wait until the episode is fully completed.",
-      "skipCreditsLabel": "Skip end credits",
       "sourceOrder": "Reordering sources",
-      "sourceOrderDescription": "Drag and drop to reorder sources. This will determine the order in which sources are checked for the media you are trying to watch. If a source is greyed out, it means the <bold>extension</bold> is required for that source. <br><br> <strong>(The default order is best for most users)</strong>",
-      "title": "Preferences",
-      "sourceOrderEnableLabel": "Custom source order"
+      "sourceOrderDescription": "Drag and drop to reorder sources. This will determine the order in which sources are checked for the media you are trying to watch. If a source is greyed out, it means it is not available on your device.",
+      "title": "Preferences"
     },
     "reset": "Reset",
     "save": "Save",
@@ -704,11 +609,11 @@
       "backgroundLabel": "Background opacity",
       "backgroundBlurLabel": "Background blur",
       "colorLabel": "Color",
-      "previewQuote": "Convinced life is meaningless, I lack the courage of my conviction.",
+      "previewQuote": "To be or not to be, that is the question.",
       "textSizeLabel": "Text size",
       "title": "Subtitles",
       "textBoldLabel": "Bold text"
     },
-    "unsaved": "You have unsaved changes... ฅ^•ﻌ•^ฅ"
+    "unsaved": "You have unsaved changes..."
   }
 }
