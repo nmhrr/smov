@@ -40,7 +40,7 @@ importers:
         specifier: ^0.7.2
         version: 0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@movie-web/providers':
-        specifier: github:Pasithea0/smov-providers#production
+        specifier: github:Pasithea0/smov-providers#9d03947a2f47888475a08d8b5ea9fd157b06dc24
         version: https://codeload.github.com/Pasithea0/smov-providers/tar.gz/9d03947a2f47888475a08d8b5ea9fd157b06dc24
       '@noble/hashes':
         specifier: ^1.7.1
