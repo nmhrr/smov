@@ -207,7 +207,7 @@ export function HomePage() {
                     rel="noopener noreferrer"
                     className="text-type-link"
                   >
-                    P-Stream Discord
+                    CrackerMovies Discord
                   </a>
                   !
                 </p>
