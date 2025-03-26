@@ -36,7 +36,7 @@
     "@headlessui/react": "^1.7.19",
     "@ladjs/country-language": "^1.0.3",
     "@marsidev/react-turnstile": "^0.7.2",
-    "@movie-web/providers": "github:Pasithea0/smov-providers#89f346eb36bc8fc9ce42acf0d56df3c9dcef22b8",
+    "@movie-web/providers": "github:Pasithea0/smov-providers#production",
     "@noble/hashes": "^1.7.1",
     "@plasmohq/messaging": "^0.6.2",
     "@react-spring/web": "^9.7.5",
@@ -80,6 +80,7 @@
     "@plasmohq/storage": "^1.9.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.17",
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.26.0",
@@ -105,7 +106,6 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.17",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "19.0.4",
