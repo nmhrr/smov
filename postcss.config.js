@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
-    tailwindcss: {},
+    ...(process.env.SKIP_TAILWIND ? {} : { tailwindcss: {} }),
     autoprefixer: {},
   },
 }
