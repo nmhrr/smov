@@ -36,7 +36,7 @@
     "@headlessui/react": "^1.7.19",
     "@ladjs/country-language": "^1.0.3",
     "@marsidev/react-turnstile": "^0.7.2",
-    "@movie-web/providers": "github:Pasithea0/smov-providers#production",
+    "@movie-web/providers": "github:Pasithea0/smov-providers#89f346eb36bc8fc9ce42acf0d56df3c9dcef22b8",
     "@noble/hashes": "^1.7.1",
     "@plasmohq/messaging": "^0.6.2",
     "@react-spring/web": "^9.7.5",
@@ -76,7 +76,8 @@
     "slugify": "^1.6.6",
     "subsrt-ts": "^2.1.2",
     "zustand": "^4.5.6",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "@plasmohq/storage": "^1.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
