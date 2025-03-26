@@ -63,6 +63,9 @@ importers:
       '@types/node-forge':
         specifier: ^1.3.11
         version: 1.3.11
+      autoprefixer:
+        specifier: ^10.4.17
+        version: 10.4.21(postcss@8.5.3)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -241,9 +244,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@5.4.14(@types/node@20.17.24)(terser@5.39.0))
-      autoprefixer:
-        specifier: ^10.4.17
-        version: 10.4.21(postcss@8.5.3)
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
