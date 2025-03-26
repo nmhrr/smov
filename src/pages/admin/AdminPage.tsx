@@ -11,8 +11,8 @@ export function AdminPage() {
   return (
     <SubPageLayout>
       <ThinContainer>
-        <Heading1>Admin tools</Heading1>
-        <Paragraph>Silly tools used test CrackerMovies! ૮₍´˶• . • ⑅ ₎ა</Paragraph>
+        <Heading1>Testing tools</Heading1>
+        <Paragraph>Tools used to test CrackerMovies</Paragraph>
 
         <ConfigValuesPart />
         <BackendTestPart />
