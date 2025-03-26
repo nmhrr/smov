@@ -40,7 +40,7 @@ importers:
         specifier: ^0.7.2
         version: 0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@movie-web/providers':
-        specifier: github:Pasithea0/smov-providers#production
+        specifier: github:Pasithea0/smov-providers#89f346eb36bc8fc9ce42acf0d56df3c9dcef22b8
         version: https://codeload.github.com/Pasithea0/smov-providers/tar.gz/89f346eb36bc8fc9ce42acf0d56df3c9dcef22b8
       '@noble/hashes':
         specifier: ^1.7.1
@@ -48,6 +48,9 @@ importers:
       '@plasmohq/messaging':
         specifier: ^0.6.2
         version: 0.6.2(react@18.3.1)
+      '@plasmohq/storage':
+        specifier: ^1.9.0
+        version: 1.15.0(react@18.3.1)
       '@react-spring/web':
         specifier: ^9.7.5
         version: 9.7.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1252,6 +1255,14 @@ packages:
     resolution: {integrity: sha512-CGfcvfVE0wsN/Y/i/jV0nwjkwh2gBCEujZFhLoxJ12N0ScoP3JVEIvUxJSFsAD4ylBQ8IjD2FyjQozwiSxWc4Q==}
     peerDependencies:
       react: ^16.8.6 || ^17 || ^18
+    peerDependenciesMeta:
+      react:
+        optional: true
+
+  '@plasmohq/storage@1.15.0':
+    resolution: {integrity: sha512-zBZ2NyVyvZlql2XHsjkZDL0+bqF6lir9RygeTnkYGF253M8DZttuSvjpsmpK6OWYmRXjhEqJeubd3+Zq9kuZ0w==}
+    peerDependencies:
+      react: ^16.8.6 || ^17 || ^18 || ^19.0.0
     peerDependenciesMeta:
       react:
         optional: true
@@ -3166,6 +3177,10 @@ packages:
   pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+
+  pify@6.1.0:
+    resolution: {integrity: sha512-KocF8ve28eFjjuBKKGvzOBGzG8ew2OqOOSxTTZhirkzH7h3BI1vyzqlR0qbfcDBve1Yzo3FVlWUAtCRrbVN8Fw==}
+    engines: {node: '>=14.16'}
 
   pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
@@ -5336,6 +5351,12 @@ snapshots:
   '@plasmohq/messaging@0.6.2(react@18.3.1)':
     dependencies:
       nanoid: 5.0.3
+    optionalDependencies:
+      react: 18.3.1
+
+  '@plasmohq/storage@1.15.0(react@18.3.1)':
+    dependencies:
+      pify: 6.1.0
     optionalDependencies:
       react: 18.3.1
 
@@ -7520,6 +7541,8 @@ snapshots:
   picomatch@4.0.2: {}
 
   pify@2.3.0: {}
+
+  pify@6.1.0: {}
 
   pirates@4.0.6: {}
 
