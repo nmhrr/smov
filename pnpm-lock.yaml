@@ -40,8 +40,8 @@ importers:
         specifier: ^0.7.2
         version: 0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@movie-web/providers':
-        specifier: github:Pasithea0/smov-providers#production
-        version: https://codeload.github.com/Pasithea0/smov-providers/tar.gz/b2026ef9b45d1b77a460edcc4934854b93d3ee08
+        specifier: github:nmhrr/providers#production
+        version: https://codeload.github.com/nmhrr/providers/tar.gz/fbaa34b9caa10072fe83f337c4e9c2561b69429e(postcss@8.5.3)
       '@noble/hashes':
         specifier: ^1.7.1
         version: 1.7.1
@@ -1161,8 +1161,8 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  '@movie-web/providers@https://codeload.github.com/Pasithea0/smov-providers/tar.gz/b2026ef9b45d1b77a460edcc4934854b93d3ee08':
-    resolution: {tarball: https://codeload.github.com/Pasithea0/smov-providers/tar.gz/b2026ef9b45d1b77a460edcc4934854b93d3ee08}
+  '@movie-web/providers@https://codeload.github.com/nmhrr/providers/tar.gz/fbaa34b9caa10072fe83f337c4e9c2561b69429e':
+    resolution: {tarball: https://codeload.github.com/nmhrr/providers/tar.gz/fbaa34b9caa10072fe83f337c4e9c2561b69429e}
     version: 2.3.0
 
   '@napi-rs/wasm-runtime@0.2.7':
@@ -5271,8 +5271,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@movie-web/providers@https://codeload.github.com/Pasithea0/smov-providers/tar.gz/b2026ef9b45d1b77a460edcc4934854b93d3ee08':
+  '@movie-web/providers@https://codeload.github.com/nmhrr/providers/tar.gz/fbaa34b9caa10072fe83f337c4e9c2561b69429e(postcss@8.5.3)':
     dependencies:
+      autoprefixer: 10.4.21(postcss@8.5.3)
       cheerio: 1.0.0-rc.12
       cookie: 0.6.0
       crypto-js: 4.2.0
@@ -5284,6 +5285,8 @@ snapshots:
       node-fetch: 3.3.2
       set-cookie-parser: 2.7.1
       unpacker: 1.0.1
+    transitivePeerDependencies:
+      - postcss
 
   '@napi-rs/wasm-runtime@0.2.7':
     dependencies:
