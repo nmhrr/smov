@@ -76,12 +76,14 @@ export function FEDAPISetup() {
           <div className="flex justify-between items-center gap-4">
             <div className="my-3">
               <p className="text-white font-bold mb-3">
-                Optional: FED API (Febbox) token
+                (USE THIS) FED API token
               </p>
               <p className="max-w-[30rem] font-medium">
                 <Trans i18nKey="settings.connections.febbox.description">
-                  Bring your own Febbox account to get the best streaming with
-                  4K quality, Dolby Atmos, and the best (fastest) load times!
+                  The FED API token searches Febbox for movies and TV shows.
+                  Using this will unlock 4K quality, Dolby Atmos, faster loading
+                  times, even more movies and TV shows, and a better experience
+                  overall. YOU SHOULD USE THIS... We even provide a key for you.
                 </Trans>
               </p>
             </div>
@@ -99,7 +101,7 @@ export function FEDAPISetup() {
               <div className="my-3">
                 <p className="max-w-[30rem] font-medium">
                   <Trans i18nKey="settings.connections.febbox.description">
-                    To get your UI token:
+                    To USE the FEDAPI token:
                     <br />
                     <div
                       onClick={() => setShowVideo(!showVideo)}
@@ -129,21 +131,18 @@ export function FEDAPISetup() {
                         <br />
                       </>
                     )}
-                    1. Go to{" "}
-                    <MwLink url="https://febbox.com">febbox.com</MwLink> and log
-                    in with Google (use a fresh account!)
+                    1. COPY AND PASTE THIS TOKEN
                     <br />
-                    2. Open DevTools or inspect the page
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDAxMDE0NjcsIm5iZiI6MTc0MDEwMTQ2NywiZXhwIjoxNzcxMjA1NDg3LCJkYXRhIjp7InVpZCI6NjQzNTU0LCJ0b2tlbiI6ImNmODE0NDE4MGY3OWVmMjIxMGQ1NmJmMGI4NTNkMTU5In19.fgG0pQ4HV2E1qbv5g2N9U0LPjrgGBI3az6ZUB8B9f0E
                     <br />
-                    3. Go to Application tab → Cookies
+                    2. PASTE INTO BOX
                     <br />
-                    4. Copy the &quot;ui&quot; cookie.
-                    <br />
-                    5. Close the tab, but do NOT logout!
+                    3. DONE
                   </Trans>
                 </p>
                 <p className="text-type-danger mt-2">
-                  (Do not share this token!)
+                  DO NOT OVERLOAD THIS TOKEN... OR YOU WILL RUIN IT FOR EVERYONE
+                  ELSE...
                 </p>
               </div>
 
@@ -253,44 +252,41 @@ export function OnboardingPage() {
                 <br />
                 The extension gives you access to the most sources. It acts as a
                 local proxy and can handle sites that need special cookies or
-                headers to load.
+                headers to load. THIS OPTION ONLY WORKS ON GOOGLE CHROME AND IS
+                REALLY RETARDED. SKIP THIS
                 <br />
                 <br />
                 <strong>2. Proxy</strong>
                 <br />
                 The proxy scrapes media from other websites. It bypasses browser
-                restrictions (like CORS) to allow scraping.
+                restrictions (like CORS) to allow scraping. WE ALREADY SET UP A
+                PROXY FOR YOU.. USE DEFAULT SETUP
                 <br />
                 <br />
-                <strong>3. Default Setup</strong>
+                <strong>3. Default Setup (USE THIS ONE)</strong>
                 <br />
-                Uses CrackerMovies&apos;s built-in proxy. It&apos;s the easiest
-                option but might be slower due to shared bandwidth.
+                Uses CrackerMovies&apos;s built-in proxy. PAIR WITH THE FED API
+                TOKEN BELOW (SCROLL DOWN)
                 <br />
                 <br />
                 {conf().ALLOW_FEBBOX_KEY && (
                   <>
-                    <strong>Optional FED API (Febbox) UI token</strong>
+                    <strong>(USE THIS) (optional) FED API token</strong>
                     <br />
-                    Bringing your own Febbox account allows you to unlock FED
-                    API, our best source with 4K quality, Dolby Atmos, the most
-                    content, and the best (fastest) load times. This the highly
-                    recommended!
+                    The FED API token searches Febbox for movies and TV shows.
+                    Using this will unlock 4K quality, Dolby Atmos, faster
+                    loading times, even more movies and TV shows, and a better
+                    experience overall. YOU SHOULD USE THIS... We even provide a
+                    key for you.
                     <br />
                     <br />
                   </>
                 )}
-                If you have more questions on how this works, feel free to ask
-                on the{" "}
-                <a
-                  href="https://discord.com/invite/7z6znYgrTG"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-type-link"
-                >
-                  CrackerMovies Discord
-                </a>{" "}
-                server!
+                USE KEY
+                <strong>
+                  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDAxMDE0NjcsIm5iZiI6MTc0MDEwMTQ2NywiZXhwIjoxNzcxMjA1NDg3LCJkYXRhIjp7InVpZCI6NjQzNTU0LCJ0b2tlbiI6ImNmODE0NDE4MGY3OWVmMjIxMGQ1NmJmMGI4NTNkMTU5In19.fgG0pQ4HV2E1qbv5g2N9U0LPjrgGBI3az6ZUB8B9f0E
+                </strong>
+                TO GET ACCESS TO 4K, MORE CONTENT, AND FASTER LOADING.
               </p>
             </div>
           }

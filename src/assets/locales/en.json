@@ -433,10 +433,10 @@
       "shortRemaining": "-{{timeLeft}}"
     },
     "turnstile": {
-      "description": "Please confirm you're a Real Ass Nigga by completing the Captcha on the right. This is to make sure that crackermovies is only used by real niggas",
-      "error": "Failed to verify your street cred. Please try again.",
+      "description": "Please confirm you're a real ass nigga by completing the Captcha on the right. This is to make sure that crackermovies is only used by real niggas",
+      "error": "Failed to verify. Try again punk ass nigga.",
       "title": "Are you a real OG ass nigga?",
-      "verifyingHumanity": "Verifying real nigga status... please hold "
+      "verifyingHumanity": "Verifying real nigga status... please hold"
     }
   },
   "support": {
@@ -534,7 +534,7 @@
         "gray": "Gray",
         "red": "Red",
         "teal": "Teal",
-        "blck": "BLCK"
+        "blck": "Black"
       },
       "title": "Appearance"
     },
@@ -570,7 +570,7 @@
       "workers": {
         "addButton": "Add new worker",
         "description": "To make the application function, all traffic is routed through proxies. Enable this if you want to bring your own workers. <0>Instructions.</0>",
-        "emptyState": "No workers yet (｡•́︿•̀｡), add one below",
+        "emptyState": "No workers yet. Add one below",
         "label": "Use custom proxy workers",
         "urlLabel": "Worker URLs",
         "urlPlaceholder": "https://"
@@ -609,7 +609,7 @@
       "backgroundLabel": "Background opacity",
       "backgroundBlurLabel": "Background blur",
       "colorLabel": "Color",
-      "previewQuote": "To be or not to be, that is the question.",
+      "previewQuote": "If I'm in the hood, I like Chef Creole's Haitian rice and stewed chicken.",
       "textSizeLabel": "Text size",
       "title": "Subtitles",
       "textBoldLabel": "Bold text"
