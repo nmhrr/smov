@@ -1,3 +1,3 @@
-Fork of sudo-flix without anything weird
+Fork of sudo-flix without anything weird or quirky we made it professional not gay...
 
 Brought to you by CRACKERMAFIA/CRACKERLABS 2025
