@@ -6,6 +6,7 @@
     }
   ],
   "installCommand": "pnpm install --no-frozen-lockfile",
+  "PNPM_FROZEN_LOCKFILE": "false",
   "headers": [
     {
       "source": "/(.*)",
